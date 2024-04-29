@@ -41,8 +41,46 @@ export const Logo = styled.div`
   margin: 0;
   padding: 0;
   align-items: center;
+  a {
+    color: #fda;
+    transition: color 0.3s ease;
+    :hover {
+      color: red;
+    }
+    text-decoration: none;
+  }
   button {
     margin-left: 5px;
     cursor: pointer;
+  }
+`;
+export const Profile = styled.div`
+  font-size: 24px;
+  color: bisque;
+  align-items: center;
+  display: flex;
+  span {
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+  img {
+    margin-right: 12px;
+    display: block;
+    cursor: pointer;
+  }
+`;
+export const GoalWeightContainer = styled.li`
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  img {
+    margin-left: 12px;
+    margin-right: 12px;
   }
 `;
