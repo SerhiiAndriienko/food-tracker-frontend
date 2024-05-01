@@ -69,18 +69,32 @@ export const Profile = styled.div`
     cursor: pointer;
   }
 `;
-export const GoalWeightContainer = styled.li`
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  font-size: 14px;
-  cursor: pointer;
-  div {
-    display: flex;
-    flex-direction: column;
-  }
-  img {
-    margin-left: 12px;
-    margin-right: 12px;
-  }
+// export const GoalWeightContainer = styled.li`
+//   display: flex;
+//   align-items: center;
+//   color: #ffffff;
+//   font-size: 14px;
+//   cursor: pointer;
+//   div {
+//     display: flex;
+//     flex-direction: column;
+//   }
+//   img {
+//     margin-left: 12px;
+//     margin-right: 12px;
+//   }
+// `;
+export const ChangeWeightStyle = styled.div`
+  background-color: #555;
+  position: absolute;
+  top: 50px;
+  box-shadow: 2px 2px 4px #e3ffa8;
+  border-radius: 16px;
+`;
+export const MobileMenuStyle = styled.div`
+  background-color: #555;
+  position: absolute;
+  top: 50px;
+  box-shadow: 2px 2px 4px #e3ffa8;
+  border-radius: 16px;
 `;

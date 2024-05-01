@@ -10,7 +10,7 @@ export default function Home() {
       <DailyGoal></DailyGoal>
       <FoodGraf></FoodGraf>
       <Diary></Diary>
-      <RecommendedFood></RecommendedFood>
+      {/* <RecommendedFood></RecommendedFood> */}
     </main>
   );
 }
