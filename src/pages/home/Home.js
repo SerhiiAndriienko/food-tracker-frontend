@@ -7,9 +7,9 @@ import RecommendedFood from 'components/recommendedFood/RecommendedFood';
 export default function Home() {
   return (
     <main>
-      <DailyGoal></DailyGoal>
-      <FoodGraf></FoodGraf>
-      <Diary></Diary>
+      {/* <DailyGoal></DailyGoal> */}
+      {/* <FoodGraf></FoodGraf> */}
+      {/* <Diary></Diary> */}
       {/* <RecommendedFood></RecommendedFood> */}
     </main>
   );

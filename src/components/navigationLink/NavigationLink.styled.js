@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const NavList = styled.ul`
+  color: #ffffff;
   @media screen and (min-width: 834px) {
   }
 
@@ -11,8 +12,9 @@ export const NavList = styled.ul`
     li {
       padding-right: 30px;
       a {
-        color: #fda;
         transition: color 0.3s ease;
+        color: #ffffff;
+
         :hover {
           color: red;
         }

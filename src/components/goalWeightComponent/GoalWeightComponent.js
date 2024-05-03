@@ -1,13 +1,38 @@
+import PropTypes from 'prop-types';
 import {
   GoalContainer,
+  GoalImg,
   GoalWeightContainer,
   WeightContainer,
 } from './GoalWeightComponent.styled';
-export default function GoalWeightComponent({ toggleWeightclick }) {
+import { useMediaQuery } from '@mui/material';
+export default function GoalWeightComponent({
+  toggleWeightclick,
+  toggleGoalClick,
+  toggleIsModalWindowOpen,
+}) {
+  const isMobile = useMediaQuery('(max-width:834px)');
+  const openChangeWeightComponent = () => {
+    if (isMobile) {
+      toggleIsModalWindowOpen();
+      toggleWeightclick();
+    } else {
+      toggleWeightclick();
+    }
+  };
+  const openChangeGoalComponent = () => {
+    if (isMobile) {
+      toggleIsModalWindowOpen();
+      toggleGoalClick();
+    } else {
+      toggleGoalClick();
+    }
+  };
+
   return (
     <GoalWeightContainer>
-      <GoalContainer>
-        <img
+      <GoalContainer onClick={openChangeGoalComponent}>
+        <GoalImg
           height={'28px'}
           src="https://andriizlt.github.io/healthyHub-frontend/static/media/gainMuscle.747f9465f2b3869b77db.png"
           alt="goalImg"
@@ -22,8 +47,8 @@ export default function GoalWeightComponent({ toggleWeightclick }) {
           alt="openMenu"
         />
       </GoalContainer>
-      <WeightContainer onClick={toggleWeightclick}>
-        <img
+      <WeightContainer onClick={openChangeWeightComponent}>
+        <GoalImg
           height={'28px'}
           src="https://andriizlt.github.io/healthyHub-frontend/static/media/Weight.3b2a28209eca1dbfb33a.png"
           alt="goalImg"
@@ -41,3 +66,8 @@ export default function GoalWeightComponent({ toggleWeightclick }) {
     </GoalWeightContainer>
   );
 }
+GoalWeightComponent.propTypes = {
+  toggleWeightclick: PropTypes.func.isRequired,
+  toggleGoalClick: PropTypes.func.isRequired,
+  toggleIsModalWindowOpen: PropTypes.func.isRequired,
+};

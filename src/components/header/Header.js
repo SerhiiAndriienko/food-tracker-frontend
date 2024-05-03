@@ -2,38 +2,55 @@ import useMediaQuery from 'helpers/mediaQuery';
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import {
-  // GoalWeightContainer,
   Logo,
-  // NavList,
   Navigation,
   Profile,
   ChangeWeightStyle,
   MobileMenuStyle,
+  ChangeGoalStyle,
 } from './Header.styled';
 import NavigationLink from 'components/navigationLink/NavigationLink';
 import ChangeWeight from 'components/changeWeight/ChangeWeight';
 import GoalWeightComponent from 'components/goalWeightComponent/GoalWeightComponent';
 import MobileMenu from 'components/mobileMenu/MobileMenu';
+import ModalWindow from 'components/modalWindow/ModalWindow';
+import ChangeGoal from 'components/changeGoal/ChangeGoal';
 
 export default function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width:1440px)');
   const isTablet = useMediaQuery('(min-width:834px)');
   const isMobile = useMediaQuery('(max-width:833px)');
-  const [isModalChangeWeightOpen, setIsModalChangeWeightOpen] = useState(false);
+  const [isChangeWeightOpen, setIsChangeWeightOpen] = useState(false);
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
+  const [isChangeGoalOpen, setIsChangeGoalOpen] = useState(false);
 
   const toggleWeightclick = () => {
-    setIsModalChangeWeightOpen(!isModalChangeWeightOpen);
-    console.log(isModalChangeWeightOpen);
+    setIsChangeWeightOpen(!isChangeWeightOpen);
   };
   const toggleMobileMenu = () => {
     setIsMobileModalOpen(!isMobileModalOpen);
+  };
+  const toggleGoalClick = () => {
+    setIsChangeGoalOpen(!isChangeGoalOpen);
+  };
+
+  const toggleIsModalWindowOpen = () => {
+    if (isModalOpen) {
+      setIsModalOpen(!isModalOpen);
+      setIsChangeWeightOpen(false);
+      setIsChangeGoalOpen(false);
+    } else {
+      setIsModalOpen(!isModalOpen);
+    }
   };
   return (
     <>
       <Navigation>
         <Logo>
-          <Link to={'/'}>Food-tracker</Link>
+          <Link to={'/'}>
+            <span>Food-tracker</span>
+          </Link>
           {/* <button> */}
           <img
             src="https://andriizlt.github.io/healthyHub-frontend/static/media/menu.97ad8789cd03286d8287e77fd882b302.svg"
@@ -47,9 +64,12 @@ export default function Header() {
             <MobileMenuStyle>
               {isMobile && (
                 <MobileMenu
+                  toggleIsModalWindowOpen={toggleIsModalWindowOpen}
                   toggleMobileMenu={toggleMobileMenu}
                   toggleWeightclick={toggleWeightclick}
-                  isModalChangeWeightOpen={isModalChangeWeightOpen}
+                  isChangeWeightOpen={isChangeWeightOpen}
+                  toggleGoalClick={toggleGoalClick}
+                  isChangeGoalOpen={isChangeGoalOpen}
                 ></MobileMenu>
               )}
             </MobileMenuStyle>
@@ -58,17 +78,21 @@ export default function Header() {
         {isDesktop && <NavigationLink></NavigationLink>}
         {isTablet && (
           <>
-            {/* <ul> */}
-            {isModalChangeWeightOpen && (
+            {isChangeWeightOpen && (
               <ChangeWeightStyle>
                 <ChangeWeight
                   toggleWeightclick={toggleWeightclick}
                 ></ChangeWeight>
               </ChangeWeightStyle>
             )}
-            {/* </ul> */}
+            {isChangeGoalOpen && (
+              <ChangeGoalStyle>
+                <ChangeGoal toggleGoalClick={toggleGoalClick}></ChangeGoal>
+              </ChangeGoalStyle>
+            )}
             <GoalWeightComponent
               toggleWeightclick={toggleWeightclick}
+              toggleGoalClick={toggleGoalClick}
             ></GoalWeightComponent>
           </>
         )}
@@ -87,6 +111,15 @@ export default function Header() {
           />
         </Profile>
       </Navigation>
+      {isModalOpen && (
+        <ModalWindow
+          isModalOpen={isModalOpen}
+          isChangeWeightOpen={isChangeWeightOpen}
+          toggleIsModalWindowOpen={toggleIsModalWindowOpen}
+          toggleWeightclick={toggleWeightclick}
+          isChangeGoalOpen={isChangeGoalOpen}
+        ></ModalWindow>
+      )}
       <Outlet></Outlet>
     </>
   );

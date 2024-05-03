@@ -20,20 +20,6 @@ export const Container = styled.div`
     margin: 0px;
     padding-bottom: 16px;
   }
-  input {
-    padding: 0;
-    margin-right: 12px;
-    height: 36px;
-    width: 166px;
-    border-radius: 16px;
-    background-color: #555555;
-    border-color: #e3ffa8;
-    text-indent: 20px;
-    color: #ffffff;
-    &::placeholder {
-      opacity: 1;
-    }
-  }
 `;
 
 export const CloseBtn = styled.img`
