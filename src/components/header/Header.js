@@ -52,15 +52,15 @@ export default function Header() {
           <Link to={'/'}>
             <span>Food-tracker</span>
           </Link>
-          {/* <button> */}
-          <img
-            src="https://andriizlt.github.io/healthyHub-frontend/static/media/menu.97ad8789cd03286d8287e77fd882b302.svg"
-            alt="menu"
-            height={'25px'}
-            color="#fda"
-            onClick={toggleMobileMenu}
-          />
-          {/* </button> */}
+
+          <button onClick={toggleMobileMenu}>
+            <img
+              src="https://andriizlt.github.io/healthyHub-frontend/static/media/menu.97ad8789cd03286d8287e77fd882b302.svg"
+              alt="menu"
+              height={'25px'}
+              color="#fda"
+            />
+          </button>
           {isMobileModalOpen && (
             <MobileMenuStyle>
               {isMobile && (

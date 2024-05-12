@@ -40,6 +40,8 @@ export const Logo = styled.div`
   }
   button {
     cursor: pointer;
+    background-color: transparent;
+    border: none;
   }
 `;
 export const Profile = styled.div`

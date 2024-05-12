@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   NutrientBlock,
   RecommendedFoodNutrientInfo,
@@ -395,3 +397,6 @@ const RecommendedFood = ({ count }) => {
 };
 
 export default RecommendedFood;
+RecommendedFood.propTypes = {
+  count: PropTypes.number.isRequired,
+};

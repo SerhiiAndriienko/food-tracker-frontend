@@ -10,8 +10,6 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
   const isMobile = useMediaQuery('(max-width:833px)');
-  // const isDesktop = useMediaQuery('(min-width:1440px)');
-  // const isTablet = useMediaQuery('(min-width:834px) and (max-width:1439px)');
   const [count, setCount] = useState(isMobile ? 2 : 4);
 
   useEffect(() => {

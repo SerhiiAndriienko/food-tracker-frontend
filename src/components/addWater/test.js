@@ -7,6 +7,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import PropTypes from 'prop-types';
 
 import { Bar } from 'react-chartjs-2';
 
@@ -89,4 +90,7 @@ export const WaterChart = ({ waterIntake }) => {
       }}
     />
   );
+};
+WaterChart.propTypes = {
+  waterIntake: PropTypes.number.isRequired,
 };

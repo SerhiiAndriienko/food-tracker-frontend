@@ -15,8 +15,6 @@ import {
 import { WaterChart } from './test';
 
 export default function AddWater() {
-  // const waterLevel = (182 * 100) / 100;
-  // const canvasHeight = `${waterLevel}px`;
   let waterIntake = 70;
   return (
     <Container>

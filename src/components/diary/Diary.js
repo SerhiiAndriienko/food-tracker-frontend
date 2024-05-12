@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Container, DiaryHeader } from './Diary.styled';
 import { DairyNutrientComponent } from './NutrientStatistics';
-// import useMediaQuery from 'helpers/mediaQuery';
 
 export default function Diary() {
-  // const isMobile = useMediaQuery('(max-width:833px)');
-
   const DairyBreakfastComponent = DairyNutrientComponent(
     'Breakfast',
     60,

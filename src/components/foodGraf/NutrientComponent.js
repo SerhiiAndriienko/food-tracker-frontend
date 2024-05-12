@@ -14,12 +14,12 @@ export const NutrientComponent = (
   nutrientName,
   dailyGoal,
   nutrientIntake,
-  percent = null,
+  percent,
   colors,
   height
 ) => {
   const NutrientComponent = () => {
-    const percentValue = percent ? percent : (nutrientIntake * 100) / dailyGoal;
+    const percentValue = percent || (nutrientIntake * 100) / dailyGoal;
     const data = {
       datasets: [
         {

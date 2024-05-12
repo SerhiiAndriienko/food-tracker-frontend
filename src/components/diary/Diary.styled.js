@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 const isTablet = '@media (min-width:833px)';
-// const isDesktop = '@media (min-width:1440px)';
 
 export const Container = styled.div`
   color: white;
