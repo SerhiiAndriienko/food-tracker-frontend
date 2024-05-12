@@ -65,4 +65,7 @@ export const GoalImg = styled.img`
   padding: 10px;
   border: 1px solid #918d84;
   border-radius: 10px;
+  @media screen and (max-width: 834px) {
+    margin-bottom: 16px;
+  }
 `;

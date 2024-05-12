@@ -36,6 +36,6 @@ export default function ChangeWeight({
   );
 }
 ChangeWeight.propTypes = {
-  toggleIsModalWindowOpen: PropTypes.func.isRequired,
-  toggleWeightclick: PropTypes.func.isRequired,
+  toggleIsModalWindowOpen: PropTypes.func,
+  toggleWeightclick: PropTypes.func,
 };

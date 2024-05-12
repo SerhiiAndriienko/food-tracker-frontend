@@ -9,6 +9,8 @@ import {
   CloseBtn,
   ConfirmBtn,
   Container,
+  GoalContainer,
+  GoalImg,
 } from './ChangeGoal.styled';
 
 export default function ChangeGoal({
@@ -22,15 +24,20 @@ export default function ChangeGoal({
       <Container>
         <h2>Target selection</h2>
         <p>The service will adjust your calorie intake to your goal</p>
-        <div>
-          <img height={'28px'} src={LoseFatImg} alt="goalImg" />
-          <span>Lose fat</span>
-          <img height={'28px'} src={maintainImg} alt="goalImg" />
-          <span>Maintain</span>
-
-          <img height={'28px'} src={gainMuscleImg} alt="goalImg" />
-          <span>Gain muscle</span>
-        </div>
+        <GoalContainer>
+          <div>
+            <GoalImg height={'28px'} src={LoseFatImg} alt="goalImg" />
+            <span>Lose fat</span>
+          </div>
+          <div>
+            <GoalImg height={'28px'} src={maintainImg} alt="goalImg" />
+            <span>Maintain</span>
+          </div>
+          <div>
+            <GoalImg height={'28px'} src={gainMuscleImg} alt="goalImg" />
+            <span>Gain muscle</span>
+          </div>
+        </GoalContainer>
         <div>
           <ConfirmBtn>Confirm</ConfirmBtn>
         </div>
@@ -48,6 +55,6 @@ export default function ChangeGoal({
   );
 }
 ChangeGoal.propTypes = {
-  toggleGoalClick: PropTypes.func.isRequired,
-  toggleIsModalWindowOpen: PropTypes.func.isRequired,
+  toggleGoalClick: PropTypes.func,
+  toggleIsModalWindowOpen: PropTypes.func,
 };

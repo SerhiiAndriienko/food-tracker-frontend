@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Modal = styled.div`
-  width: 60%;
+  width: 90%;
   margin: 0 auto;
   min-height: 200px;
   max-width: 541px;
@@ -14,6 +14,9 @@ export const Modal = styled.div`
   padding: 40px;
   background-color: #555;
   max-height: 100vh;
+  @media screen and (max-width: 834px) {
+    padding: 10px;
+  }
 `;
 export const ModalBackdrop = styled.div`
   position: fixed;

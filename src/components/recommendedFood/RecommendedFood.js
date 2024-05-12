@@ -1,4 +1,14 @@
 import { useEffect, useState } from 'react';
+import {
+  NutrientBlock,
+  RecommendedFoodNutrientInfo,
+  RecommendedFoodNutrientName,
+  RecommendedFoodNutrientStatistics,
+  RecommendedFoodContainer,
+  RecommendedFoodHeader,
+} from './RecommendedFood.styled';
+import { Link } from 'react-router-dom';
+import useMediaQuery from 'helpers/mediaQuery';
 
 export const products = [
   {
@@ -348,35 +358,39 @@ const getRandomProducts = (data, count) => {
   return randomData.slice(0, count);
 };
 
-const RecommendedFood = () => {
+const RecommendedFood = ({ count }) => {
+  const isMobile = useMediaQuery('(max-width:833px)');
+
   const [randomProducts, setRandomProducts] = useState([]);
 
   useEffect(() => {
-    const randomProducts = getRandomProducts(products, 2);
+    const randomProducts = getRandomProducts(products, count);
     setRandomProducts(randomProducts);
-  }, []);
+  }, [count]);
 
   return (
-    <div>
-      <p>Recommended food</p>
+    <RecommendedFoodContainer>
+      <RecommendedFoodHeader>Recommended food</RecommendedFoodHeader>
       <div>
-        <ul>
+        <NutrientBlock isMobile={isMobile}>
           {randomProducts.map(product => (
-            <li key={product.name}>
-              <img src={product.img} alt="product" width={46} />
+            <RecommendedFoodNutrientInfo key={product.name}>
+              <img src={product.img} alt="product" height={'46px'} />
               <div>
-                <li> {product.name}</li>
-                <div>
+                <RecommendedFoodNutrientName>
+                  {product.name}
+                </RecommendedFoodNutrientName>
+                <RecommendedFoodNutrientStatistics>
                   <li> {product.amount}</li>
-                  <li> {product.calories} calories</li>
-                </div>
+                  <span> {product.calories} calories</span>
+                </RecommendedFoodNutrientStatistics>
               </div>
-            </li>
+            </RecommendedFoodNutrientInfo>
           ))}
-        </ul>
+        </NutrientBlock>
       </div>
-      <button>See more</button>
-    </div>
+      <Link>See more &rarr;</Link>
+    </RecommendedFoodContainer>
   );
 };
 

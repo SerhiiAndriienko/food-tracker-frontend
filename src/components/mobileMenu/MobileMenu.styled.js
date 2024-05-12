@@ -3,8 +3,10 @@ import styled from '@emotion/styled';
 export const MobileMenuContainer = styled.div`
   width: 300px;
   padding: 24px;
+
   ul {
     margin: 0;
+
     padding: 0;
   }
   a {
@@ -13,12 +15,12 @@ export const MobileMenuContainer = styled.div`
     font-weight: 300;
     font-size: 14px;
     transition: color 0.3s ease;
-      :focus {
-          color: red;
-      }
+    :focus {
+      color: red;
+    }
   }
   li {
-    margin-bottom: 24px;s
+    margin-bottom: 24px;
   }
 `;
 

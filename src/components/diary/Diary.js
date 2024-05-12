@@ -1,35 +1,30 @@
 import { Link } from 'react-router-dom';
+import { Container, DiaryHeader } from './Diary.styled';
+import { DairyNutrientComponent } from './NutrientStatistics';
+// import useMediaQuery from 'helpers/mediaQuery';
 
 export default function Diary() {
+  // const isMobile = useMediaQuery('(max-width:833px)');
+
+  const DairyBreakfastComponent = DairyNutrientComponent(
+    'Breakfast',
+    60,
+    40,
+    20
+  );
+  const DairyLunchComponent = DairyNutrientComponent('Lunch', null, 40, 20);
+  const DairyDinnerComponent = DairyNutrientComponent('Dinner', null, 40, 20);
+  const DairySnackComponent = DairyNutrientComponent('Snack', null, 40, 20);
   return (
-    <>
-      <p>Diary</p>
-      <Link>See more</Link>
-      <img
-        alt="BreakfastFoto"
-        src="https://andriizlt.github.io/healthyHub-frontend/static/media/breakfast.f1ff39ce6a18fb4d909722e48c944518.svg"
-      />
-      <p>Breakfast</p>
-      <button>+ Record your meal</button>
-      <img
-        alt="LunchFoto"
-        src="https://andriizlt.github.io/healthyHub-frontend/static/media/lunch.30f0a0599d84d0a170fe6c53fbe282f5.svg"
-      />
-      <p>Lunch</p>
-      <button>+ Record your meal</button>
-      alt="LunchFoto"
-      <img
-        alt="DinnerFoto"
-        src="https://andriizlt.github.io/healthyHub-frontend/static/media/dinner.548e66b9d3a3ed31fbeb5279ee2dd299.svg"
-      />
-      <p>Dinner</p>
-      <button>+ Record your meal</button>
-      <img
-        alt="SnackFoto"
-        src="https://andriizlt.github.io/healthyHub-frontend/static/media/snack.ab1ecdcc3d6f3609639a77576cf8628d.svg"
-      />
-      <p>Snack</p>
-      <button>+ Record your meal</button>
-    </>
+    <Container>
+      <DiaryHeader>
+        <h3>Diary</h3>
+        <Link>See more</Link>
+      </DiaryHeader>
+      <DairyBreakfastComponent></DairyBreakfastComponent>
+      <DairyLunchComponent></DairyLunchComponent>
+      <DairyDinnerComponent></DairyDinnerComponent>
+      <DairySnackComponent></DairySnackComponent>
+    </Container>
   );
 }

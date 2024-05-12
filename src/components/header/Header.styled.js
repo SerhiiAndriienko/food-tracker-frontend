@@ -8,8 +8,11 @@ export const Navigation = styled.div`
   font-size: 24px;
   font-weight: 800;
   color: #fda;
-  background-color: #555;
+  background-color: #0f0f0f;
   padding: 8px;
+  padding-top: 19px;
+  padding-bottom: 19px;
+
   a {
   }
   li {
@@ -54,26 +57,15 @@ export const Profile = styled.div`
     cursor: pointer;
   }
 `;
-// export const GoalWeightContainer = styled.li`
-//   display: flex;
-//   align-items: center;
-//   color: #ffffff;
-//   font-size: 14px;
-//   cursor: pointer;
-//   div {
-//     display: flex;
-//     flex-direction: column;
-//   }
-//   img {
-//     margin-left: 12px;
-//     margin-right: 12px;
-//   }
-// `;
+
 export const ChangeWeightStyle = styled.div`
-  background-color: #555;
+  background-color: #0f0f0f;
+  z-index: 9999;
   position: absolute;
   top: 50px;
-  box-shadow: 2px 2px 4px #e3ffa8;
+  left: 50%;
+  transform: translate(-50%, 8%);
+  box-shadow: 1px 1px 2px #e3ffa8;
   border-radius: 16px;
 `;
 export const MobileMenuStyle = styled.div`
@@ -84,9 +76,20 @@ export const MobileMenuStyle = styled.div`
   border-radius: 16px;
 `;
 export const ChangeGoalStyle = styled.div`
-  background-color: #555;
+  background-color: #0f0f0f;
   position: absolute;
+  z-index: 9999;
   top: 50px;
-  box-shadow: 2px 2px 4px #e3ffa8;
+  left: 50%;
+  transform: translate(-50%, 4%);
+  box-shadow: 1px 1px 2px #e3ffa8;
   border-radius: 16px;
+`;
+export const Test = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9998;
 `;

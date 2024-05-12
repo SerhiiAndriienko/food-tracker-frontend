@@ -39,7 +39,7 @@ export default function GoalWeightComponent({
         />
         <div>
           <span>Goal </span>
-          <span>Lose fat</span>
+          <span>Gain muscle</span>
         </div>
         <img
           height={'15px'}
@@ -69,5 +69,5 @@ export default function GoalWeightComponent({
 GoalWeightComponent.propTypes = {
   toggleWeightclick: PropTypes.func.isRequired,
   toggleGoalClick: PropTypes.func.isRequired,
-  toggleIsModalWindowOpen: PropTypes.func.isRequired,
+  toggleIsModalWindowOpen: PropTypes.func,
 };

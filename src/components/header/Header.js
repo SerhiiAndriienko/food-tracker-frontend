@@ -8,6 +8,7 @@ import {
   ChangeWeightStyle,
   MobileMenuStyle,
   ChangeGoalStyle,
+  Test,
 } from './Header.styled';
 import NavigationLink from 'components/navigationLink/NavigationLink';
 import ChangeWeight from 'components/changeWeight/ChangeWeight';
@@ -110,6 +111,20 @@ export default function Header() {
             alt="openMenu"
           />
         </Profile>
+        {isChangeGoalOpen && (
+          <Test
+            onClick={() => {
+              toggleGoalClick();
+            }}
+          ></Test>
+        )}
+        {isChangeWeightOpen && (
+          <Test
+            onClick={() => {
+              toggleWeightclick();
+            }}
+          ></Test>
+        )}
       </Navigation>
       {isModalOpen && (
         <ModalWindow
