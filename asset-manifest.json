@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/food-tracker-frontend/static/css/main.4a40cb30.css",
-    "main.js": "/food-tracker-frontend/static/js/main.4823a5fc.js",
+    "main.css": "/food-tracker-frontend/static/css/main.11bfe9f0.css",
+    "main.js": "/food-tracker-frontend/static/js/main.57c9ce2d.js",
+    "static/media/Maintain.png": "/food-tracker-frontend/static/media/Maintain.dbd3f170856c9941c53a.png",
     "index.html": "/food-tracker-frontend/index.html",
-    "main.4a40cb30.css.map": "/food-tracker-frontend/static/css/main.4a40cb30.css.map",
-    "main.4823a5fc.js.map": "/food-tracker-frontend/static/js/main.4823a5fc.js.map"
+    "static/media/trash-03.svg": "/food-tracker-frontend/static/media/trash-03.04fad025baabb7f54f21ea1c592a8335.svg",
+    "main.11bfe9f0.css.map": "/food-tracker-frontend/static/css/main.11bfe9f0.css.map",
+    "main.57c9ce2d.js.map": "/food-tracker-frontend/static/js/main.57c9ce2d.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a40cb30.css",
-    "static/js/main.4823a5fc.js"
+    "static/css/main.11bfe9f0.css",
+    "static/js/main.57c9ce2d.js"
   ]
 }
