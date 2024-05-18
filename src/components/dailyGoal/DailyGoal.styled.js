@@ -4,7 +4,7 @@ const isTablet = '@media (min-width:833px)';
 
 export const DailyGoalContainer = styled.div`
   width: 100%;
-  color: #ffffff;
+  color: var(--color-primary---white);
   padding: auto;
   p {
     margin: 0;

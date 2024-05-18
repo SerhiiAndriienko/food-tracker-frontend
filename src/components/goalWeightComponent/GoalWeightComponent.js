@@ -6,15 +6,20 @@ import {
   WeightContainer,
 } from './GoalWeightComponent.styled';
 import { useMediaQuery } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsModalOpen } from '../../redux/redux/modalWindow/selectors';
+import { setIsModalOpen } from '../../redux/redux/modalWindow/slice';
 export default function GoalWeightComponent({
   toggleWeightclick,
   toggleGoalClick,
-  toggleIsModalWindowOpen,
 }) {
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector(getIsModalOpen);
   const isMobile = useMediaQuery('(max-width:834px)');
   const openChangeWeightComponent = () => {
     if (isMobile) {
-      toggleIsModalWindowOpen();
+      dispatch(setIsModalOpen(!isModalOpen));
+
       toggleWeightclick();
     } else {
       toggleWeightclick();
@@ -22,7 +27,8 @@ export default function GoalWeightComponent({
   };
   const openChangeGoalComponent = () => {
     if (isMobile) {
-      toggleIsModalWindowOpen();
+      dispatch(setIsModalOpen(!isModalOpen));
+
       toggleGoalClick();
     } else {
       toggleGoalClick();
@@ -69,5 +75,4 @@ export default function GoalWeightComponent({
 GoalWeightComponent.propTypes = {
   toggleWeightclick: PropTypes.func.isRequired,
   toggleGoalClick: PropTypes.func.isRequired,
-  toggleIsModalWindowOpen: PropTypes.func,
 };

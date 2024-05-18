@@ -19,7 +19,7 @@ export const Canvas = styled.canvas`
   border-radius: 20px;
 `;
 export const CanvasContainer = styled.div`
-  background-color: #050505;
+  background-color: var(--color-primary---black);
   border: 1px solid #292928;
   width: 70px;
   border-radius: 20px;
@@ -71,13 +71,15 @@ export const WaterConsumption = styled.span`
 `;
 export const WaterPercent = styled.span`
   position: absolute;
-  top: 50px;
-  left: 44px;
+  top: ${props =>
+    props.waterIntake === 0 || props.waterIntake < 76 ? '50px' : '70px'};
+
+  left: ${props => (props.waterIntake === 100 ? '45px' : '50px')};
 
   font-weight: 700;
   font-size: 16px;
   color: ${props =>
-    props.waterIntake && props.waterIntake < 76 ? '#b6c3ff' : '#0f0f0f'};
+    props.waterIntake === 0 || props.waterIntake < 76 ? '#b6c3ff' : '#0f0f0f'};
 `;
 export const Left = styled.div`
   display: box;

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-
 export const Modal = styled.div`
-  width: 90%;
+  width: ${props => (props.isMobile ? '90%' : 'auto')};
+
   margin: 0 auto;
   min-height: 200px;
   max-width: 541px;
@@ -12,7 +12,7 @@ export const Modal = styled.div`
   z-index: 9999;
   border-radius: 10px;
   padding: 40px;
-  background-color: #555;
+  background-color: #0f0f0f;
   max-height: 100vh;
   @media screen and (max-width: 834px) {
     padding: 10px;

@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
 
 export const RecommendedFoodContainer = styled.div`
-  padding: 10px;
   padding-top: 8px;
-  background-color: #050505;
+  background-color: var(--color-primary---black);
 
-  color: #ffffff;
+  color: var(--color-primary---white);
   a {
     padding-top: 5px;
-    margin-left: 16px;
     text-decoration: none;
     color: #b6b6b6;
     font-size: 14px;
@@ -20,8 +18,7 @@ export const RecommendedFoodContainer = styled.div`
   }
 `;
 export const RecommendedFoodHeader = styled.div`
-  color: #ffffff;
-  padding: 8px;
+  color: var(--color-primary---white);
   margin-bottom: 20px;
   font-size: 20px;
 `;
@@ -29,7 +26,6 @@ export const RecommendedFoodHeader = styled.div`
 export const NutrientBlock = styled.ul`
   list-style: none;
 
-  padding-left: 24px;
   display: grid;
   grid-template-columns: ${({ isMobile }) =>
     isMobile ? '1fr' : 'repeat(2, 1fr)'};

@@ -4,8 +4,7 @@ const isTablet = '@media (min-width:833px)';
 export const Container = styled.div`
   color: white;
 
-  padding: 10px;
-  background-color: #050505;
+  background-color: var(--color-primary---black);
 
   h3 {
     margin: 0;
@@ -18,10 +17,10 @@ export const Container = styled.div`
 export const DiaryHeader = styled.div`
   display: flex;
   align-items: start;
-  background-color: #050505;
+  background-color: var(--color-primary---black);
 
-  color: #ffffff;
-  padding: 8px;
+  color: var(--color-primary---white);
+  padding-top: 8px;
   padding-bottom: 20px;
   a {
     padding-top: 5px;
@@ -84,7 +83,7 @@ export const NutrientStatistics = styled.div`
 `;
 export const RecordBtn = styled.button`
   background-color: transparent;
-  color: #e3ffa8;
+  color: var(--color-primary---green-lite);
   border: none;
   cursor: pointer;
 `;

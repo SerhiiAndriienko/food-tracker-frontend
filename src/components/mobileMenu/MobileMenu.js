@@ -1,6 +1,10 @@
 import GoalWeightComponent from 'components/goalWeightComponent/GoalWeightComponent';
 import NavigationLink from 'components/navigationLink/NavigationLink';
-import { CloseBtn, MobileMenuContainer } from './MobileMenu.styled';
+import {
+  CloseBtn,
+  MobileMenuContainer,
+  ModalBackdrop,
+} from './MobileMenu.styled';
 import PropTypes from 'prop-types';
 
 export default function MobileMenu({
@@ -10,21 +14,24 @@ export default function MobileMenu({
   toggleIsModalWindowOpen,
 }) {
   return (
-    <MobileMenuContainer>
-      <div>
-        <NavigationLink></NavigationLink>
-        <GoalWeightComponent
-          toggleIsModalWindowOpen={toggleIsModalWindowOpen}
-          toggleWeightclick={toggleWeightclick}
-          toggleGoalClick={toggleGoalClick}
-        ></GoalWeightComponent>
-        <CloseBtn
-          src="https://andriizlt.github.io/healthyHub-frontend/static/media/close-circle.73bdd9e6ab202aa8197dc65002a783d9.svg"
-          alt="close"
-          onClick={toggleMobileMenu}
-        />
-      </div>
-    </MobileMenuContainer>
+    <>
+      <ModalBackdrop onClick={toggleMobileMenu}></ModalBackdrop>
+      <MobileMenuContainer>
+        <div>
+          <NavigationLink></NavigationLink>
+          <GoalWeightComponent
+            toggleIsModalWindowOpen={toggleIsModalWindowOpen}
+            toggleWeightclick={toggleWeightclick}
+            toggleGoalClick={toggleGoalClick}
+          ></GoalWeightComponent>
+          <CloseBtn
+            src="https://andriizlt.github.io/healthyHub-frontend/static/media/close-circle.73bdd9e6ab202aa8197dc65002a783d9.svg"
+            alt="close"
+            onClick={toggleMobileMenu}
+          />
+        </div>
+      </MobileMenuContainer>
+    </>
   );
 }
 

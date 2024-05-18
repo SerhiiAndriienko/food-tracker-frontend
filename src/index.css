@@ -1,14 +1,26 @@
 @import-normalize; /* bring in normalize.css styles */
-
+:root {
+  --color-primary---white: #fff;
+  --color-primary---black: #050505;
+  --color-primary---violet: #b6c3ff;
+  --color-primary---black-2: #0f0f0f;
+  --color-primary---lite-green: #45ffbc;
+  --color-primary---grey: #b6b6b6;
+  --secondary-color---grey-1: #292928;
+  --secondary-color---pink: #ffc4f7;
+  --secondary-color---yellow: #fff3b7;
+  --color-primary---green-lite: #e3ffa8;
+  --font-family: 'Poppins', sans-serif;
+}
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Poppins', 'Segoe UI',
     'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
     'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-
-  background-color: #050505;
+  margin: 0 auto;
+  padding: 0 8px;
+  background-color: var(--color-primary---black);
 
   font-weight: 500;
   cursor: default;
@@ -21,4 +33,10 @@ code {
 button {
   padding: 0;
   margin: 0;
+}
+a {
+  margin: 0;
+}
+ul {
+  padding: 0;
 }

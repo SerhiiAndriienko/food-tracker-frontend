@@ -8,7 +8,7 @@ import {
   ChangeWeightStyle,
   MobileMenuStyle,
   ChangeGoalStyle,
-  Test,
+  ModalBackdrop,
 } from './Header.styled';
 import NavigationLink from 'components/navigationLink/NavigationLink';
 import ChangeWeight from 'components/changeWeight/ChangeWeight';
@@ -16,20 +16,29 @@ import GoalWeightComponent from 'components/goalWeightComponent/GoalWeightCompon
 import MobileMenu from 'components/mobileMenu/MobileMenu';
 import ModalWindow from 'components/modalWindow/ModalWindow';
 import ChangeGoal from 'components/changeGoal/ChangeGoal';
+import { useSelector, useDispatch } from 'react-redux';
+import { getIsModalOpen } from '../../redux/redux/modalWindow/selectors';
+import { setIsModalOpen } from '../../redux/redux/modalWindow/slice';
 
 export default function Header() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector(getIsModalOpen);
   const isDesktop = useMediaQuery('(min-width:1440px)');
   const isTablet = useMediaQuery('(min-width:834px)');
   const isMobile = useMediaQuery('(max-width:833px)');
   const [isChangeWeightOpen, setIsChangeWeightOpen] = useState(false);
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [isChangeGoalOpen, setIsChangeGoalOpen] = useState(false);
-
+  const isAddWaterModalOpen = useSelector(
+    state => state.waterLevel.isModalOpen
+  );
   const toggleWeightclick = () => {
     setIsChangeWeightOpen(!isChangeWeightOpen);
   };
   const toggleMobileMenu = () => {
+    isModalOpen && dispatch(setIsModalOpen(false));
+    setIsChangeWeightOpen(false);
+    setIsChangeGoalOpen(false);
     setIsMobileModalOpen(!isMobileModalOpen);
   };
   const toggleGoalClick = () => {
@@ -38,13 +47,15 @@ export default function Header() {
 
   const toggleIsModalWindowOpen = () => {
     if (isModalOpen) {
-      setIsModalOpen(!isModalOpen);
+      dispatch(setIsModalOpen(!isModalOpen));
       setIsChangeWeightOpen(false);
       setIsChangeGoalOpen(false);
+      isAddWaterModalOpen && dispatch(setIsModalOpen(false));
     } else {
-      setIsModalOpen(!isModalOpen);
+      dispatch(setIsModalOpen(!isModalOpen));
     }
   };
+
   return (
     <>
       <Navigation>
@@ -61,18 +72,16 @@ export default function Header() {
               color="#fda"
             />
           </button>
-          {isMobileModalOpen && (
+          {isMobileModalOpen && isMobile && (
             <MobileMenuStyle>
-              {isMobile && (
-                <MobileMenu
-                  toggleIsModalWindowOpen={toggleIsModalWindowOpen}
-                  toggleMobileMenu={toggleMobileMenu}
-                  toggleWeightclick={toggleWeightclick}
-                  isChangeWeightOpen={isChangeWeightOpen}
-                  toggleGoalClick={toggleGoalClick}
-                  isChangeGoalOpen={isChangeGoalOpen}
-                ></MobileMenu>
-              )}
+              <MobileMenu
+                toggleIsModalWindowOpen={toggleIsModalWindowOpen}
+                toggleMobileMenu={toggleMobileMenu}
+                toggleWeightclick={toggleWeightclick}
+                isChangeWeightOpen={isChangeWeightOpen}
+                toggleGoalClick={toggleGoalClick}
+                isChangeGoalOpen={isChangeGoalOpen}
+              />
             </MobileMenuStyle>
           )}
         </Logo>
@@ -80,14 +89,14 @@ export default function Header() {
         {isTablet && (
           <>
             {isChangeWeightOpen && (
-              <ChangeWeightStyle>
+              <ChangeWeightStyle isDesktop={isDesktop}>
                 <ChangeWeight
                   toggleWeightclick={toggleWeightclick}
                 ></ChangeWeight>
               </ChangeWeightStyle>
             )}
             {isChangeGoalOpen && (
-              <ChangeGoalStyle>
+              <ChangeGoalStyle isDesktop={isDesktop}>
                 <ChangeGoal toggleGoalClick={toggleGoalClick}></ChangeGoal>
               </ChangeGoalStyle>
             )}
@@ -112,23 +121,24 @@ export default function Header() {
           />
         </Profile>
         {isChangeGoalOpen && (
-          <Test
+          <ModalBackdrop
+            isModalOpen={isModalOpen}
             onClick={() => {
               toggleGoalClick();
             }}
-          ></Test>
+          ></ModalBackdrop>
         )}
         {isChangeWeightOpen && (
-          <Test
+          <ModalBackdrop
+            isModalOpen={isModalOpen}
             onClick={() => {
               toggleWeightclick();
             }}
-          ></Test>
+          ></ModalBackdrop>
         )}
       </Navigation>
       {isModalOpen && (
         <ModalWindow
-          isModalOpen={isModalOpen}
           isChangeWeightOpen={isChangeWeightOpen}
           toggleIsModalWindowOpen={toggleIsModalWindowOpen}
           toggleWeightclick={toggleWeightclick}

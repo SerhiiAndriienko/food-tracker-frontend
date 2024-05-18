@@ -7,14 +7,15 @@ export const Container = styled.div`
   padding: 20px;
   padding-left: 24px;
   padding-right: 24px;
-  overflow: hidden;
+  position: relative;
+  z-index: 9999;
   h2 {
     margin: 0px;
     padding-bottom: 8px;
     font-family: 'Leckerli One', cursive;
     font-size: 18px;
     font-weight: 400;
-    color: #ffffff;
+    color: var(--color-primary---white);
   }
   p {
     margin: 0px;
@@ -32,7 +33,7 @@ export const Container = styled.div`
     background-color: #555555;
     border-color: #e3ffa8;
     text-indent: 20px;
-    color: #ffffff;
+    color: var(--color-primary---white);
     &::placeholder {
       opacity: 1;
     }
@@ -82,13 +83,4 @@ export const CancelBtn = styled.button`
   @media screen and (max-width: 834px) {
     width: 100%;
   }
-`;
-export const ModalBackdrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9998;
 `;

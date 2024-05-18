@@ -1,4 +1,8 @@
+import React from 'react';
 import styled from '@emotion/styled';
+import useMediaQuery from '../../helpers/mediaQuery';
+const isTablet = '(min-width: 834px)';
+const isDesktop = '(min-width: 1440px)';
 
 export const Navigation = styled.div`
   display: flex;
@@ -9,7 +13,6 @@ export const Navigation = styled.div`
   font-weight: 800;
   color: #fda;
   background-color: #0f0f0f;
-  padding: 8px;
   padding-top: 19px;
   padding-bottom: 19px;
 
@@ -64,30 +67,36 @@ export const ChangeWeightStyle = styled.div`
   background-color: #0f0f0f;
   z-index: 9999;
   position: absolute;
-  top: 50px;
-  left: 50%;
+  top: 75px;
+  left: ${props => (props.isDesktop ? '66%' : '50%')};
+
   transform: translate(-50%, 8%);
-  box-shadow: 1px 1px 2px #e3ffa8;
+  box-shadow: 1px 1px 2px var(--color-primary---green-lite);
   border-radius: 16px;
 `;
 export const MobileMenuStyle = styled.div`
   background-color: #555;
   position: absolute;
   top: 50px;
-  box-shadow: 2px 2px 4px #e3ffa8;
+  box-shadow: 2px 2px 4px var(--color-primary---green-lite);
   border-radius: 16px;
+  z-index: 9999;
 `;
 export const ChangeGoalStyle = styled.div`
   background-color: #0f0f0f;
   position: absolute;
   z-index: 9999;
-  top: 50px;
-  left: 50%;
+  top: 75px;
+  left: ${props => (props.isDesktop ? '66%' : '50%')};
+
   transform: translate(-50%, 4%);
-  box-shadow: 1px 1px 2px #e3ffa8;
+  box-shadow: 1px 1px 2px var(--color-primary---green-lite);
   border-radius: 16px;
 `;
-export const Test = styled.div`
+export const ModalBackdrop = styled.div`
+  display: ${props => (props.isModalOpen ? 'block' : 'none')};
+  display: ${isTablet ? 'block' : 'none'};
+
   position: fixed;
   top: 0;
   left: 0;

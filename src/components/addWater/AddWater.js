@@ -1,5 +1,4 @@
 import deleteImg from '../../public/img/trash-03.svg';
-
 import {
   AddBtn,
   AddWaterContainer,
@@ -12,10 +11,36 @@ import {
   WaterPercent,
   WaterText,
 } from './AddWater.styled';
-import { WaterChart } from './test';
-
+import { WaterChart } from './WaterChart';
+import { useSelector, useDispatch } from 'react-redux';
+import { getIsModalOpen } from '../../redux/redux/modalWindow/selectors';
+import {
+  deleteWaterLevel,
+  setIsWaterModalOpen,
+} from '../../redux/redux/water/slice';
+import { setIsModalOpen } from '../../redux/redux/modalWindow/slice';
 export default function AddWater() {
-  let waterIntake = 70;
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector(getIsModalOpen);
+  const waterLevel = useSelector(state => state.waterLevel.waterLevel);
+  const isAddWaterModalOpen = useSelector(
+    state => state.waterLevel.isModalOpen
+  );
+
+  const needWater = 1500;
+  let waterIntake = Math.round((waterLevel * 100) / needWater);
+  if (waterIntake > 100) {
+    waterIntake = 100;
+  }
+  const leftWater = Math.max(needWater - waterLevel, 0);
+
+  const addWater = () => {
+    dispatch(setIsModalOpen(!isModalOpen));
+    dispatch(setIsWaterModalOpen(!isAddWaterModalOpen));
+  };
+  const deleteWater = () => {
+    dispatch(deleteWaterLevel());
+  };
   return (
     <Container>
       <h3>Water</h3>
@@ -24,19 +49,26 @@ export default function AddWater() {
         <CanvasContainer style={{ height: '192px' }}>
           <WaterChart waterIntake={waterIntake}></WaterChart>
           <WaterPercent waterIntake={waterIntake}>{waterIntake}%</WaterPercent>
-          <DeleteBtn src={deleteImg} alt="deleteImg" height={'20px'} />
+          {waterLevel > 0 && (
+            <DeleteBtn
+              src={deleteImg}
+              alt="deleteImg"
+              height={'20px'}
+              onClick={deleteWater}
+            />
+          )}
         </CanvasContainer>
 
         <WaterText>
           <p>Water consumption</p>
-          <WaterConsumption>1050</WaterConsumption>
+          <WaterConsumption>{waterLevel}</WaterConsumption>
           <Ml>ml</Ml>
           <Left>
             <Ml>left:</Ml>
-            <Ml>450</Ml>
+            <Ml>{leftWater}</Ml>
             <Ml>ml</Ml>
           </Left>
-          <AddBtn>+ Add water intake</AddBtn>
+          <AddBtn onClick={addWater}>+ Add water intake</AddBtn>
         </WaterText>
       </AddWaterContainer>
     </Container>

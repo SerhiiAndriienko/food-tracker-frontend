@@ -22,8 +22,7 @@ export const Container = styled.div`
 
   justify-content: space-between;
   align-items: center;
-  color: #ffffff;
-  padding: 8px;
+  color: var(--color-primary---white);
   margin-bottom: 20px;
   a {
     text-decoration: none;
