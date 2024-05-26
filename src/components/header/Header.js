@@ -17,12 +17,12 @@ import MobileMenu from 'components/mobileMenu/MobileMenu';
 import ModalWindow from 'components/modalWindow/ModalWindow';
 import ChangeGoal from 'components/changeGoal/ChangeGoal';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIsModalOpen } from '../../redux/redux/modalWindow/selectors';
-import { setIsModalOpen } from '../../redux/redux/modalWindow/slice';
+import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
+import { setIsMainModalOpen } from '../../redux/redux/modalWindow/slice';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const isModalOpen = useSelector(getIsModalOpen);
+  const isMainModalOpen = useSelector(getIsMainModalOpen);
   const isDesktop = useMediaQuery('(min-width:1440px)');
   const isTablet = useMediaQuery('(min-width:834px)');
   const isMobile = useMediaQuery('(max-width:833px)');
@@ -30,13 +30,13 @@ export default function Header() {
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [isChangeGoalOpen, setIsChangeGoalOpen] = useState(false);
   const isAddWaterModalOpen = useSelector(
-    state => state.waterLevel.isModalOpen
+    state => state.waterLevel.isMainModalOpen
   );
   const toggleWeightclick = () => {
     setIsChangeWeightOpen(!isChangeWeightOpen);
   };
   const toggleMobileMenu = () => {
-    isModalOpen && dispatch(setIsModalOpen(false));
+    isMainModalOpen && dispatch(setIsMainModalOpen(false));
     setIsChangeWeightOpen(false);
     setIsChangeGoalOpen(false);
     setIsMobileModalOpen(!isMobileModalOpen);
@@ -46,13 +46,13 @@ export default function Header() {
   };
 
   const toggleIsModalWindowOpen = () => {
-    if (isModalOpen) {
-      dispatch(setIsModalOpen(!isModalOpen));
+    if (isMainModalOpen) {
+      dispatch(setIsMainModalOpen(!isMainModalOpen));
       setIsChangeWeightOpen(false);
       setIsChangeGoalOpen(false);
-      isAddWaterModalOpen && dispatch(setIsModalOpen(false));
+      isAddWaterModalOpen && dispatch(setIsMainModalOpen(false));
     } else {
-      dispatch(setIsModalOpen(!isModalOpen));
+      dispatch(setIsMainModalOpen(!isMainModalOpen));
     }
   };
 
@@ -122,7 +122,7 @@ export default function Header() {
         </Profile>
         {isChangeGoalOpen && (
           <ModalBackdrop
-            isModalOpen={isModalOpen}
+            isMainModalOpen={isMainModalOpen}
             onClick={() => {
               toggleGoalClick();
             }}
@@ -130,14 +130,14 @@ export default function Header() {
         )}
         {isChangeWeightOpen && (
           <ModalBackdrop
-            isModalOpen={isModalOpen}
+            isMainModalOpen={isMainModalOpen}
             onClick={() => {
               toggleWeightclick();
             }}
           ></ModalBackdrop>
         )}
       </Navigation>
-      {isModalOpen && (
+      {isMainModalOpen && (
         <ModalWindow
           isChangeWeightOpen={isChangeWeightOpen}
           toggleIsModalWindowOpen={toggleIsModalWindowOpen}

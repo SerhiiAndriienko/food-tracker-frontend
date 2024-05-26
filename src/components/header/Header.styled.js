@@ -1,8 +1,5 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import useMediaQuery from '../../helpers/mediaQuery';
 const isTablet = '(min-width: 834px)';
-const isDesktop = '(min-width: 1440px)';
 
 export const Navigation = styled.div`
   display: flex;

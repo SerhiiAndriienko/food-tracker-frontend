@@ -1,1 +1,1 @@
-export const getIsModalOpen = state => state.isModalOpen.isModalOpen;
+export const getIsMainModalOpen = state => state.isModalOpen.isMainModalOpen;

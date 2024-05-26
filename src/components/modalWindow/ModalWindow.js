@@ -6,20 +6,28 @@ import ReactDOM from 'react-dom';
 import ChangeWeight from 'components/changeWeight/ChangeWeight';
 import ChangeGoal from '../changeGoal/ChangeGoal';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsModalOpen } from '../../redux/redux/modalWindow/selectors';
-import { setIsModalOpen } from '../../redux/redux/modalWindow/slice';
-import { setIsWaterModalOpen } from '../../redux/redux/water/slice';
+import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
+import {
+  setIsMainModalOpen,
+  setIsWaterModalOpen,
+  setIsFoodModalOpen,
+  setMealsType,
+} from '../../redux/redux/modalWindow/slice';
 import ModalAddWater from '../modalAddWater/ModalAddWater';
 import useMediaQuery from 'helpers/mediaQuery';
+import ModalAddFood from 'components/modalAddFood/ModalAddFood';
 export default function ModalWindow({
   toggleIsModalWindowOpen,
   isChangeWeightOpen,
   isChangeGoalOpen,
 }) {
   const dispatch = useDispatch();
-  const isModalOpen = useSelector(getIsModalOpen);
-  const isAddWaterModalOpen = useSelector(
-    state => state.waterLevel.isModalOpen
+  const isModalOpen = useSelector(getIsMainModalOpen);
+  const isWaterModalOpen = useSelector(
+    state => state.isModalOpen.isWaterModalOpen
+  );
+  const isFoodModalOpen = useSelector(
+    state => state.isModalOpen.foodInfo.isFoodModalOpen
   );
   const isMobile = useMediaQuery('(max-width:834px)');
   return ReactDOM.createPortal(
@@ -29,8 +37,12 @@ export default function ModalWindow({
           <ModalBackdrop
             isModalOpen={isModalOpen}
             onClick={() => {
-              dispatch(setIsModalOpen(false));
-              dispatch(setIsWaterModalOpen(false));
+              dispatch(setIsMainModalOpen(false));
+              isWaterModalOpen && dispatch(setIsWaterModalOpen(false));
+              if (isFoodModalOpen) {
+                dispatch(setIsFoodModalOpen(false));
+                dispatch(setMealsType(''));
+              }
             }}
           ></ModalBackdrop>
           <Modal isMobile={isMobile}>
@@ -45,7 +57,8 @@ export default function ModalWindow({
                   toggleIsModalWindowOpen={toggleIsModalWindowOpen}
                 ></ChangeGoal>
               )}
-              {isAddWaterModalOpen && <ModalAddWater></ModalAddWater>}
+              {isWaterModalOpen && <ModalAddWater></ModalAddWater>}
+              {isFoodModalOpen && <ModalAddFood></ModalAddFood>}
             </>
           </Modal>
         </>

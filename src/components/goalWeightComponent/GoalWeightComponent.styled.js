@@ -17,7 +17,7 @@ export const GoalContainer = styled.div`
   }
   display: flex;
   align-items: center;
-  color: #ffffff;
+  color: var(--color-primary---white);
   font-size: 14px;
   font-family: poppins;
   cursor: pointer;
@@ -27,7 +27,7 @@ export const GoalContainer = styled.div`
     margin-right: 12px;
   }
   span {
-    color: #ffffff;
+    color: var(--color-primary---white);
   }
   img {
     margin-right: 12px;
@@ -44,7 +44,7 @@ export const WeightContainer = styled.div`
   }
   display: flex;
   align-items: center;
-  color: #ffffff;
+  color: var(--color-primary---white);
   font-size: 14px;
   font-family: poppins;
   cursor: pointer;
@@ -54,7 +54,7 @@ export const WeightContainer = styled.div`
     margin-right: 12px;
   }
   span {
-    color: #ffffff;
+    color: var(--color-primary---white);
   }
   img {
     margin-right: 12px;

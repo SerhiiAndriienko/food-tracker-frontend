@@ -13,18 +13,18 @@ import {
 } from './AddWater.styled';
 import { WaterChart } from './WaterChart';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIsModalOpen } from '../../redux/redux/modalWindow/selectors';
+import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
+import { deleteWaterLevel } from '../../redux/redux/water/slice';
 import {
-  deleteWaterLevel,
+  setIsMainModalOpen,
   setIsWaterModalOpen,
-} from '../../redux/redux/water/slice';
-import { setIsModalOpen } from '../../redux/redux/modalWindow/slice';
+} from '../../redux/redux/modalWindow/slice';
 export default function AddWater() {
   const dispatch = useDispatch();
-  const isModalOpen = useSelector(getIsModalOpen);
+  const isMainModalOpen = useSelector(getIsMainModalOpen);
   const waterLevel = useSelector(state => state.waterLevel.waterLevel);
   const isAddWaterModalOpen = useSelector(
-    state => state.waterLevel.isModalOpen
+    state => state.isModalOpen.isWaterModalOpen
   );
 
   const needWater = 1500;
@@ -35,7 +35,7 @@ export default function AddWater() {
   const leftWater = Math.max(needWater - waterLevel, 0);
 
   const addWater = () => {
-    dispatch(setIsModalOpen(!isModalOpen));
+    dispatch(setIsMainModalOpen(!isMainModalOpen));
     dispatch(setIsWaterModalOpen(!isAddWaterModalOpen));
   };
   const deleteWater = () => {

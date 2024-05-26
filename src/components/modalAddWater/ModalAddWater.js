@@ -9,19 +9,19 @@ import {
   WaterInput,
 } from './ModalAddWater.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIsModalOpen } from '../../redux/redux/modalWindow/selectors';
+import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
+import { setWaterLevel } from '../../redux/redux/water/slice';
 import {
+  setIsMainModalOpen,
   setIsWaterModalOpen,
-  setWaterLevel,
-} from '../../redux/redux/water/slice';
-import { setIsModalOpen } from '../../redux/redux/modalWindow/slice';
+} from '../../redux/redux/modalWindow/slice';
 import { useState } from 'react';
 
 export default function ModalAddWater() {
   const dispatch = useDispatch();
   const [waterIntake, setWaterIntake] = useState('');
   const [isValid, setIsValid] = useState(true);
-  const isModalOpen = useSelector(getIsModalOpen);
+  const isMainModalOpen = useSelector(getIsMainModalOpen);
   const waterHandler = event => {
     const value = event.target.value;
     setWaterIntake(value);
@@ -32,16 +32,16 @@ export default function ModalAddWater() {
     }
   };
 
-  const isAddWaterModalOpen = useSelector(
-    state => state.waterLevel.isModalOpen
+  const isWaterModalOpen = useSelector(
+    state => state.isModalOpen.isWaterModalOpen
   );
 
   const addWater = () => {
     if (!waterIntake || isNaN(waterIntake)) {
       toast.error('Please enter a valid water intake amount.');
     } else {
-      dispatch(setIsModalOpen(!isModalOpen));
-      dispatch(setIsWaterModalOpen(!isAddWaterModalOpen));
+      dispatch(setIsMainModalOpen(!isMainModalOpen));
+      dispatch(setIsWaterModalOpen(!isWaterModalOpen));
 
       dispatch(setWaterLevel(waterIntake));
     }

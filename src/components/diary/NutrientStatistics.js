@@ -6,15 +6,41 @@ import {
   Nutrients,
   RecordBtn,
 } from './Diary.styled';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setIsFoodModalOpen,
+  setIsMainModalOpen,
+  setMealsType,
+} from '../../redux/redux/modalWindow/slice';
+import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
 
-export const DairyNutrientComponent = (
-  eatingTime,
-  carbonohidrates,
-  protein,
-  fat
-) => {
+export const DairyNutrientComponent = (eatingTime, object) => {
   const DairyNutrientComponent = () => {
+    console.log(object);
+    const carbonohidrates = object.carbonohidrates;
+    const protein = object.protein;
+    const fat = object.fat;
+
     const isMobile = useMediaQuery('(max-width:833px)');
+    const dispatch = useDispatch();
+    const isMainModalOpen = useSelector(getIsMainModalOpen);
+    const isFoodModalOpen = useSelector(
+      state => state.isModalOpen.foodInfo.isFoodModalOpen
+    );
+    // const selectors = {
+    //   Breakfast: state => state.food.breakfast,
+    //   Lunch: state => state.food.lunch,
+    //   Dinner: state => state.food.dinner,
+    //   Snack: state => state.food.snack,
+    // };
+    // const foodSelector = selectors[eatingTime];
+    // const food = useSelector(foodSelector);
+    const toggleFoodModalWindow = () => {
+      dispatch(setMealsType(eatingTime));
+
+      dispatch(setIsFoodModalOpen(!isFoodModalOpen));
+      dispatch(setIsMainModalOpen(!isMainModalOpen));
+    };
 
     const eatingImg = () => {
       switch (eatingTime) {
@@ -52,7 +78,9 @@ export const DairyNutrientComponent = (
             </Nutrients>
           </NutrientStatistics>
         ) : (
-          <RecordBtn>+ Record your meal</RecordBtn>
+          <RecordBtn onClick={toggleFoodModalWindow}>
+            + Record your meal
+          </RecordBtn>
         )}
       </NutrientBlock>
     );

@@ -17,7 +17,7 @@ export const Container = styled.div`
     font-family: 'Leckerli One', cursive;
     font-size: 18px;
     font-weight: 400;
-    color: #ffffff;
+    color: var(--color-primary---white);
   }
   p {
     margin: 0px;
@@ -82,7 +82,7 @@ export const GoalContainer = styled.div`
 
   span {
     margin-left: 12px;
-    color: #ffffff;
+    color: var(--color-primary---white);
     font-size: 14px;
     font-family: Poppins;
   }
