@@ -16,7 +16,6 @@ import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
 
 export const DairyNutrientComponent = (eatingTime, object) => {
   const DairyNutrientComponent = () => {
-    console.log(object);
     const carbonohidrates = object.carbonohidrates;
     const protein = object.protein;
     const fat = object.fat;

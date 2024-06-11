@@ -30,7 +30,7 @@ export default function Header() {
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [isChangeGoalOpen, setIsChangeGoalOpen] = useState(false);
   const isAddWaterModalOpen = useSelector(
-    state => state.waterLevel.isMainModalOpen
+    state => state.isModalOpen.isMainModalOpen
   );
   const toggleWeightclick = () => {
     setIsChangeWeightOpen(!isChangeWeightOpen);

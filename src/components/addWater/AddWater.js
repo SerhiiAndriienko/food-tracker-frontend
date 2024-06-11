@@ -1,4 +1,5 @@
 import deleteImg from '../../public/img/trash-03.svg';
+import axios from 'axios';
 import {
   AddBtn,
   AddWaterContainer,
@@ -14,32 +15,43 @@ import {
 import { WaterChart } from './WaterChart';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
-import { deleteWaterLevel } from '../../redux/redux/water/slice';
 import {
   setIsMainModalOpen,
   setIsWaterModalOpen,
 } from '../../redux/redux/modalWindow/slice';
+import { fetchWaterInDB } from '../../redux/redux/water/operation';
+
 export default function AddWater() {
+  const BASE_URL = 'http://localhost:8081/api';
   const dispatch = useDispatch();
   const isMainModalOpen = useSelector(getIsMainModalOpen);
-  const waterLevel = useSelector(state => state.waterLevel.waterLevel);
+  const waterLevel = useSelector(state => state.waterInDB.water.value);
+  const waterId = useSelector(state => state.waterInDB.water.id);
   const isAddWaterModalOpen = useSelector(
     state => state.isModalOpen.isWaterModalOpen
   );
 
   const needWater = 1500;
-  let waterIntake = Math.round((waterLevel * 100) / needWater);
+  const safeWaterLevel = isNaN(waterLevel) ? 0 : waterLevel;
+
+  let waterIntake = Math.round((safeWaterLevel * 100) / needWater);
   if (waterIntake > 100) {
     waterIntake = 100;
   }
-  const leftWater = Math.max(needWater - waterLevel, 0);
+  const leftWater = Math.max(needWater - safeWaterLevel, 0);
 
   const addWater = () => {
     dispatch(setIsMainModalOpen(!isMainModalOpen));
     dispatch(setIsWaterModalOpen(!isAddWaterModalOpen));
   };
-  const deleteWater = () => {
-    dispatch(deleteWaterLevel());
+  const deleteWater = async () => {
+    try {
+      await axios.delete(`${BASE_URL}/water/${waterId}`);
+      dispatch(fetchWaterInDB());
+      return;
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Container>
@@ -61,7 +73,9 @@ export default function AddWater() {
 
         <WaterText>
           <p>Water consumption</p>
-          <WaterConsumption>{waterLevel}</WaterConsumption>
+          <WaterConsumption>
+            {waterLevel < 5001 ? waterLevel : '>5000'}
+          </WaterConsumption>
           <Ml>ml</Ml>
           <Left>
             <Ml>left:</Ml>
