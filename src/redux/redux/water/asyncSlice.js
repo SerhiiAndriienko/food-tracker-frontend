@@ -25,10 +25,4 @@ const waterAsyncSlice = createSlice({
   },
 });
 
-// export const {
-//   fetchWaterLevelError,
-//   fetchWaterLevelSuccess,
-//   fetchWaterLevelStart,
-// } = waterAsyncSlice.actions;
-
 export default waterAsyncSlice.reducer;
