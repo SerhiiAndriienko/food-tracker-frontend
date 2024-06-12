@@ -7,8 +7,8 @@ import { Container, DesktopStyle } from './Home.styled';
 import AddWater from 'components/addWater/AddWater';
 import useMediaQuery from 'helpers/mediaQuery';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+// import axios from 'axios';
+import { useDispatch } from 'react-redux';
 // import { setWaterLevel } from '../../redux/redux/water/slice';
 // import { getWaterLevelFromDB } from '../../redux/redux/water/selectors';
 import { fetchWaterInDB } from '../../redux/redux/water/operation';
@@ -22,7 +22,7 @@ export default function Home() {
   // const waterLevel = useSelector(state => state.waterLevel.waterLevel);
   const isMobile = useMediaQuery('(max-width:833px)');
   const [count, setCount] = useState(isMobile ? 2 : 4);
-  const url = 'http://localhost:8081/api/water/';
+  // const url = 'http://localhost:8081/api/water/';
   // useEffect(() => {
   //   async function fetchData() {
   //     // setIsLoading(true);
