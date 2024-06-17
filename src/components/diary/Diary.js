@@ -3,11 +3,9 @@ import { Container, DiaryHeader } from './Diary.styled';
 import { DairyNutrientComponent } from './NutrientStatistics';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchDayInDB } from '../../redux/redux/daySlice/operation';
 
 export default function Diary() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const day = useSelector(state => state.day);
   const breakfastFood = day.breakfast;
   const dinnerFood = day.dinner;

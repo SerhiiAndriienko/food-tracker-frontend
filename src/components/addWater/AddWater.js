@@ -19,8 +19,7 @@ import {
   setIsMainModalOpen,
   setIsWaterModalOpen,
 } from '../../redux/redux/modalWindow/slice';
-import { fetchWaterInDB } from '../../redux/redux/water/operation';
-import { useEffect } from 'react';
+
 import { fetchDayInDB } from '../../redux/redux/daySlice/operation';
 
 export default function AddWater() {
