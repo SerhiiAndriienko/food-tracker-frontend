@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Container, DiaryHeader } from './Diary.styled';
 import { DairyNutrientComponent } from './NutrientStatistics';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export default function Diary() {
   // const dispatch = useDispatch();
