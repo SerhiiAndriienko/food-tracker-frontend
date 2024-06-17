@@ -7,10 +7,9 @@ import { Container, DesktopStyle } from './Home.styled';
 import AddWater from 'components/addWater/AddWater';
 import useMediaQuery from 'helpers/mediaQuery';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
+
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchWaterInDB } from '../../redux/redux/water/operation';
 import {
   createDayInDB,
   fetchDayInDB,

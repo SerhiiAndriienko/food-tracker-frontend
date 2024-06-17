@@ -9,7 +9,6 @@ import {
 } from './FoodGraf.styled';
 import { NutrientComponent } from './NutrientComponent';
 import useMediaQuery from 'helpers/mediaQuery';
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 ChartJS.register(ArcElement);

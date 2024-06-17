@@ -13,7 +13,6 @@ import {
   InputsContainer,
   MealsType,
   MealsTypeContainer,
-  NameInput,
   NutrientInput,
 } from './ModalAddFood.styled';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,13 +22,8 @@ import {
   setIsMainModalOpen,
 } from '../../redux/redux/modalWindow/slice';
 
-import { addFood } from '../../redux/redux/foodSlice/foodSlice';
-import {
-  createDayInDB,
-  fetchDayInDB,
-} from '../../redux/redux/daySlice/operation';
-import { fetchWaterInDB } from '../../redux/redux/water/operation';
-import { useEffect } from 'react';
+import { fetchDayInDB } from '../../redux/redux/daySlice/operation';
+
 export default function ModalAddFood() {
   const dispatch = useDispatch();
   const BASE_URL = 'http://localhost:8081/api';
@@ -38,20 +32,6 @@ export default function ModalAddFood() {
   const isFoodModalOpen = useSelector(
     state => state.isModalOpen.foodInfo.isFoodModalOpen
   );
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.get(`${BASE_URL}/days/${id}`);
-  //     // Обновить состояние в Redux или локально в компоненте
-  //     dispatch(fetchDayInDB(response.data)); // или что-то подобное
-  //   } catch (error) {
-  //     console.error('Failed to fetch data:', error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   if (id) {
-  //     dispatch(fetchDayInDB(id));
-  //   }
-  // }, [dispatch, id]);
 
   const isTablet = useMediaQuery('(min-width:835px)');
 
@@ -69,30 +49,6 @@ export default function ModalAddFood() {
     }
   };
 
-  //   e.preventDefault();
-  //   dispatch(
-  //     addFood({
-  //       mealType: 'breakfast',
-  //       food: {
-  //         name: 'egg',
-  //         carbonohidrates: 10,
-  //         protein: 10,
-  //         fat: 10,
-  //       },
-  //     })
-  //   );
-  // };
-
-  // const addWater = () => {
-  //   if (!waterIntake || isNaN(waterIntake)) {
-  //     toast.error('Please enter a valid water intake amount.');
-  //   } else {
-  //     dispatch(setIsMainModalOpen(!isModalOpen));
-  //     dispatch(setIsWaterModalOpen(!isAddWaterModalOpen));
-
-  //     dispatch(setWaterLevel(waterIntake));
-  //   }
-  // };
   const handleAddFood = async event => {
     const nameInput = document.getElementById('nameInput');
     const carbonohidratesInput = document.getElementById(
@@ -194,12 +150,7 @@ export default function ModalAddFood() {
                 placeholder="Calories"
                 onKeyDown={handleKeyPress}
               ></NutrientInput>
-              <DeleteBtn
-                src={deleteImg}
-                alt="deleteImg"
-                height={'20px'}
-                // onClick={deleteWater}
-              />
+              <DeleteBtn src={deleteImg} alt="deleteImg" height={'20px'} />
             </FatAndCaloriesContainer>
           )}
           {isTablet && (
@@ -215,12 +166,7 @@ export default function ModalAddFood() {
                 placeholder="Calories"
                 onKeyDown={handleKeyPress}
               ></NutrientInput>
-              <DeleteBtn
-                src={deleteImg}
-                alt="deleteImg"
-                height={'20px'}
-                // onClick={deleteWater}
-              />
+              <DeleteBtn src={deleteImg} alt="deleteImg" height={'20px'} />
             </>
           )}
         </InputsContainer>

@@ -11,20 +11,19 @@ import {
 } from './ModalAddWater.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
-// import { setWaterLevel } from '../../redux/redux/water/slice';
+
 import {
   setIsMainModalOpen,
   setIsWaterModalOpen,
 } from '../../redux/redux/modalWindow/slice';
 import { useState } from 'react';
-import { fetchWaterInDB } from '../../redux/redux/water/operation';
+
 import { fetchDayInDB } from '../../redux/redux/daySlice/operation';
 
 export default function ModalAddWater() {
   const dispatch = useDispatch();
   const BASE_URL = 'http://localhost:8081/api';
-  const waterId = useSelector(state => state.waterInDB.water.id);
-  const waterLevel = useSelector(state => state.waterInDB.water.value);
+
   const [waterIntake, setWaterIntake] = useState('');
   const [isValid, setIsValid] = useState(true);
   const isMainModalOpen = useSelector(getIsMainModalOpen);
@@ -41,11 +40,6 @@ export default function ModalAddWater() {
         setIsValid(false);
       }
     }
-    // if (!value || isNaN(value)) {
-    //   setIsValid(false);
-    // } else {
-    //   setIsValid(true);
-    // }
   };
 
   const isWaterModalOpen = useSelector(
