@@ -1,20 +1,21 @@
 import { Link } from 'react-router-dom';
 import { Container, DiaryHeader } from './Diary.styled';
 import { DairyNutrientComponent } from './NutrientStatistics';
-import {
-  getBreakfast,
-  getDinner,
-  getLunch,
-  getSnack,
-} from '../../redux/redux/foodSlice/selectors';
-import { useSelector } from 'react-redux';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchDayInDB } from '../../redux/redux/daySlice/operation';
 
 export default function Diary() {
-  const breakfastFood = useSelector(getBreakfast);
-  const dinnerFood = useSelector(getDinner);
-  const lunchFood = useSelector(getLunch);
-  const snackFood = useSelector(getSnack);
-
+  const dispatch = useDispatch();
+  const day = useSelector(state => state.day);
+  const breakfastFood = day.breakfast;
+  const dinnerFood = day.dinner;
+  const lunchFood = day.lunch;
+  const snackFood = day.snack;
+  // useEffect(() => {
+  //   dispatch(fetchDayInDB());
+  // }, [dispatch]);
   const calculateNutrients = foodArray => {
     const carbonohidrates = foodArray.reduce(
       (acc, food) => acc + food.carbonohidrates,

@@ -1,13 +1,16 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import deleteImg from '../../public/img/trash-03.svg';
-
+import useMediaQuery from 'helpers/mediaQuery';
+import axios from 'axios';
 import {
   AddBtn,
   ButtonsDiv,
   CancelBtn,
   Container,
   DeleteBtn,
+  FatAndCaloriesContainer,
+  InputsContainer,
   MealsType,
   MealsTypeContainer,
   NameInput,
@@ -21,12 +24,36 @@ import {
 } from '../../redux/redux/modalWindow/slice';
 
 import { addFood } from '../../redux/redux/foodSlice/foodSlice';
+import {
+  createDayInDB,
+  fetchDayInDB,
+} from '../../redux/redux/daySlice/operation';
+import { fetchWaterInDB } from '../../redux/redux/water/operation';
+import { useEffect } from 'react';
 export default function ModalAddFood() {
   const dispatch = useDispatch();
+  const BASE_URL = 'http://localhost:8081/api';
+  const id = useSelector(state => state.day.id);
   const isMainModalOpen = useSelector(getIsMainModalOpen);
   const isFoodModalOpen = useSelector(
     state => state.isModalOpen.foodInfo.isFoodModalOpen
   );
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}/days/${id}`);
+  //     // Обновить состояние в Redux или локально в компоненте
+  //     dispatch(fetchDayInDB(response.data)); // или что-то подобное
+  //   } catch (error) {
+  //     console.error('Failed to fetch data:', error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   if (id) {
+  //     dispatch(fetchDayInDB(id));
+  //   }
+  // }, [dispatch, id]);
+
+  const isTablet = useMediaQuery('(min-width:835px)');
 
   const mealsType = useSelector(state => state.isModalOpen.foodInfo.mealsType);
   const eatingImg = () => {
@@ -66,7 +93,7 @@ export default function ModalAddFood() {
   //     dispatch(setWaterLevel(waterIntake));
   //   }
   // };
-  const handleAddFood = event => {
+  const handleAddFood = async event => {
     const nameInput = document.getElementById('nameInput');
     const carbonohidratesInput = document.getElementById(
       'carbonohidratesInput'
@@ -90,10 +117,9 @@ export default function ModalAddFood() {
       toast.error('Please enter a valid food information.');
       return;
     }
-
-    dispatch(
-      addFood({
-        mealType: mealsType.toLowerCase(),
+    try {
+      const response = await axios.post(`${BASE_URL}/days/updateFood/${id}`, {
+        mealsType: mealsType.toLowerCase(),
         food: {
           name: name,
           carbonohidrates: carbonohidrates,
@@ -101,15 +127,22 @@ export default function ModalAddFood() {
           fat: fat,
           calories: calories,
         },
-      })
-    );
-    nameInput.value = '';
-    carbonohidratesInput.value = '';
-    proteinInput.value = '';
-    fatInput.value = '';
-    caloriesInput.value = '';
-    dispatch(setIsMainModalOpen(!isMainModalOpen));
-    dispatch(setIsFoodModalOpen(!isFoodModalOpen));
+      });
+      if (response.data) {
+        dispatch(fetchDayInDB(id));
+      }
+      nameInput.value = '';
+      carbonohidratesInput.value = '';
+      proteinInput.value = '';
+      fatInput.value = '';
+      caloriesInput.value = '';
+
+      dispatch(setIsMainModalOpen(!isMainModalOpen));
+      dispatch(setIsFoodModalOpen(!isFoodModalOpen));
+    } catch (error) {
+      console.error('Failed to add food:', error);
+      toast.error('Failed to add food. Please try again.');
+    }
   };
 
   const handleKeyPress = event => {
@@ -118,6 +151,10 @@ export default function ModalAddFood() {
     }
   };
 
+  const cancelBtn = () => {
+    dispatch(setIsMainModalOpen(!isMainModalOpen));
+    dispatch(setIsFoodModalOpen(!isFoodModalOpen));
+  };
   return (
     <Container>
       <h3>Record your meal</h3>
@@ -126,42 +163,71 @@ export default function ModalAddFood() {
           <img src={eatingImg()} alt="Meals Img" />
           <MealsType>{mealsType}</MealsType>
         </MealsTypeContainer>
-        <NameInput
-          id="nameInput"
-          placeholder="The name of the product or dish"
-          onKeyDown={handleKeyPress}
-        ></NameInput>
-        <NutrientInput
-          id="carbonohidratesInput"
-          placeholder="Carbonoh."
-          onKeyDown={handleKeyPress}
-        ></NutrientInput>
-        <NutrientInput
-          id="proteinInput"
-          placeholder="Protein"
-          onKeyDown={handleKeyPress}
-        ></NutrientInput>
-        <div>
+        <InputsContainer>
           <NutrientInput
-            id="fatInput"
-            placeholder="Fat"
+            style={{ width: '300px' }}
+            id="nameInput"
+            size="large"
+            placeholder="The name of the product or dish"
             onKeyDown={handleKeyPress}
           ></NutrientInput>
           <NutrientInput
-            id="caloriesInput"
-            placeholder="Calories"
+            id="carbonohidratesInput"
+            placeholder="Carbonoh."
             onKeyDown={handleKeyPress}
           ></NutrientInput>
-        </div>
-        <DeleteBtn
-          src={deleteImg}
-          alt="deleteImg"
-          height={'20px'}
-          // onClick={deleteWater}
-        />
+          <NutrientInput
+            id="proteinInput"
+            placeholder="Protein"
+            onKeyDown={handleKeyPress}
+          ></NutrientInput>
+          {!isTablet && (
+            <FatAndCaloriesContainer>
+              <NutrientInput
+                id="fatInput"
+                placeholder="Fat"
+                size="small"
+                onKeyDown={handleKeyPress}
+              ></NutrientInput>
+              <NutrientInput
+                id="caloriesInput"
+                placeholder="Calories"
+                onKeyDown={handleKeyPress}
+              ></NutrientInput>
+              <DeleteBtn
+                src={deleteImg}
+                alt="deleteImg"
+                height={'20px'}
+                // onClick={deleteWater}
+              />
+            </FatAndCaloriesContainer>
+          )}
+          {isTablet && (
+            <>
+              <NutrientInput
+                id="fatInput"
+                placeholder="Fat"
+                size="small"
+                onKeyDown={handleKeyPress}
+              ></NutrientInput>
+              <NutrientInput
+                id="caloriesInput"
+                placeholder="Calories"
+                onKeyDown={handleKeyPress}
+              ></NutrientInput>
+              <DeleteBtn
+                src={deleteImg}
+                alt="deleteImg"
+                height={'20px'}
+                // onClick={deleteWater}
+              />
+            </>
+          )}
+        </InputsContainer>
+
         <ButtonsDiv>
           <AddBtn onClick={handleAddFood}>Confirm</AddBtn>
-          <CancelBtn>Cancel</CancelBtn>
+          <CancelBtn onClick={cancelBtn}>Cancel</CancelBtn>
         </ButtonsDiv>
       </div>
     </Container>

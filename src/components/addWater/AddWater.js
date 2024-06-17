@@ -20,16 +20,21 @@ import {
   setIsWaterModalOpen,
 } from '../../redux/redux/modalWindow/slice';
 import { fetchWaterInDB } from '../../redux/redux/water/operation';
+import { useEffect } from 'react';
+import { fetchDayInDB } from '../../redux/redux/daySlice/operation';
 
 export default function AddWater() {
   const BASE_URL = 'http://localhost:8081/api';
   const dispatch = useDispatch();
   const isMainModalOpen = useSelector(getIsMainModalOpen);
-  const waterLevel = useSelector(state => state.waterInDB.water.value);
-  const waterId = useSelector(state => state.waterInDB.water.id);
+  const waterLevel = useSelector(state => state.day.water);
+  const id = useSelector(state => state.day.id);
   const isAddWaterModalOpen = useSelector(
     state => state.isModalOpen.isWaterModalOpen
   );
+  // useEffect(() => {
+  //   dispatch(fetchWaterInDB());
+  // }, [dispatch]);
 
   const needWater = 1500;
   const safeWaterLevel = isNaN(waterLevel) ? 0 : waterLevel;
@@ -46,8 +51,10 @@ export default function AddWater() {
   };
   const deleteWater = async () => {
     try {
-      await axios.delete(`${BASE_URL}/water/${waterId}`);
-      dispatch(fetchWaterInDB());
+      await axios.post(`${BASE_URL}/days/deleteWater/${id}`, {
+        value: waterIntake,
+      });
+      dispatch(fetchDayInDB(id));
       return;
     } catch (error) {
       console.log(error);

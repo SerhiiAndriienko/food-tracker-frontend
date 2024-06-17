@@ -8,46 +8,27 @@ import AddWater from 'components/addWater/AddWater';
 import useMediaQuery from 'helpers/mediaQuery';
 import { Link } from 'react-router-dom';
 // import axios from 'axios';
-import { useDispatch } from 'react-redux';
-// import { setWaterLevel } from '../../redux/redux/water/slice';
-// import { getWaterLevelFromDB } from '../../redux/redux/water/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { fetchWaterInDB } from '../../redux/redux/water/operation';
+import {
+  createDayInDB,
+  fetchDayInDB,
+} from '../../redux/redux/daySlice/operation';
 export default function Home() {
   const dispatch = useDispatch();
+  const id = useSelector(state => state.day.id);
 
-  // const { waterInDB, isLoading, error } = useSelector(getWaterLevelFromDB);
   useEffect(() => {
-    dispatch(fetchWaterInDB());
-  }, [dispatch]);
-  // const waterLevel = useSelector(state => state.waterLevel.waterLevel);
+    if (!id) {
+      dispatch(createDayInDB());
+      return;
+    }
+    dispatch(fetchDayInDB(id));
+  }, [dispatch, id]);
+
   const isMobile = useMediaQuery('(max-width:833px)');
   const [count, setCount] = useState(isMobile ? 2 : 4);
-  // const url = 'http://localhost:8081/api/water/';
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     // setIsLoading(true);
-  //     await axios
-  //       .get(url)
-  //       .then(response => {
-  //         const waterToday = response.data;
-  //         if (waterToday[0]) {
-  //           const totalWaterToday = waterToday.reduce((acc, water) => {
-  //             return acc + water.value;
-  //           }, 0);
-  //           dispatch(setWaterLevel(totalWaterToday));
-  //         }
-  //       })
-
-  //       .catch(error => {
-  //         console.log(error);
-
-  //         // error.preventDefault();
-  //         // setIsLoading(false);
-  //       });
-  //   }
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   useEffect(() => {
     setCount(isMobile ? 2 : 4);

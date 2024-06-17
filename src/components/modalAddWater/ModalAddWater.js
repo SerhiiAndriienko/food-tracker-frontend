@@ -18,6 +18,7 @@ import {
 } from '../../redux/redux/modalWindow/slice';
 import { useState } from 'react';
 import { fetchWaterInDB } from '../../redux/redux/water/operation';
+import { fetchDayInDB } from '../../redux/redux/daySlice/operation';
 
 export default function ModalAddWater() {
   const dispatch = useDispatch();
@@ -27,13 +28,12 @@ export default function ModalAddWater() {
   const [waterIntake, setWaterIntake] = useState('');
   const [isValid, setIsValid] = useState(true);
   const isMainModalOpen = useSelector(getIsMainModalOpen);
-
+  const id = useSelector(state => state.day.id);
   const waterHandler = event => {
     const value = event.target.value;
     if (/^\d*$/.test(value)) {
       setWaterIntake(value);
 
-      // Проверка на диапазон от 1 до 5000
       const intValue = parseInt(value, 10);
       if (intValue >= 1 && intValue <= 5000) {
         setIsValid(true);
@@ -58,25 +58,15 @@ export default function ModalAddWater() {
     } else {
       dispatch(setIsMainModalOpen(!isMainModalOpen));
       dispatch(setIsWaterModalOpen(!isWaterModalOpen));
-      if (waterLevel === 0) {
-        try {
-          await axios.post(`${BASE_URL}/water/${waterIntake}`);
-          dispatch(fetchWaterInDB());
-          return;
-        } catch (error) {
-          console.log(error);
-        }
-      }
       try {
-        await axios.put(`${BASE_URL}/water/${waterId}`, {
+        await axios.put(`${BASE_URL}/days/updateWater/${id}`, {
           value: waterIntake,
         });
-        dispatch(fetchWaterInDB());
+        dispatch(fetchDayInDB(id));
         return;
       } catch (error) {
         console.log(error);
       }
-      // dispatch(setWaterLevel(waterIntake));
     }
   };
 

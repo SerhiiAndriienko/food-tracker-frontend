@@ -14,8 +14,13 @@ export const Modal = styled.div`
   padding: 40px;
   background-color: #0f0f0f;
   max-height: 100vh;
-  @media screen and (max-width: 834px) {
+
+  @media screen and (min-width: 834px) {
+    max-width: 80%;
     padding: 10px;
+  }
+  @media screen and (min-width: 1440px) {
+    max-width: 708px;
   }
 `;
 export const ModalBackdrop = styled.div`

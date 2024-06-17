@@ -4,8 +4,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import modalReducer from './modalWindow/slice';
+import dayAsyncSlice from './daySlice/asyncSlice';
 // import waterReducer from './water/slice';
-import foodReduser from './foodSlice/foodSlice';
+// import foodReduser from './foodSlice/foodSlice';
 import waterAsyncSlice from './water/asyncSlice';
 // const rootReducer = combineReducers();
 // const enhancer = devToolsEnhancer();
@@ -15,6 +16,7 @@ export const store = configureStore({
     waterInDB: waterAsyncSlice,
     // waterLevel: waterReducer,
     isModalOpen: modalReducer,
-    food: foodReduser,
+    day: dayAsyncSlice,
+    // food: foodReduser,
   },
 });

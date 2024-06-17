@@ -19,14 +19,14 @@ export const NutrientComponent = (
   height
 ) => {
   const NutrientComponent = () => {
-    const percentValue = percent || (nutrientIntake * 100) / dailyGoal;
+    const percentValue = percent ? (nutrientIntake * 100) / dailyGoal : 0;
     const data = {
       datasets: [
         {
           data: [percentValue, 100 - percentValue],
           backgroundColor: colors,
           borderWidth: 0,
-          borderRadius: 14,
+          borderRadius: 16,
           circumference: 360,
           cutout: '80%',
         },
@@ -46,10 +46,11 @@ export const NutrientComponent = (
         const xCoor = chart.getDatasetMeta(0).data[0].x;
         const yCoor = chart.getDatasetMeta(0).data[0].y;
 
-        const primaryData = percent ? `${data.datasets[0].data[0]}%` : '';
-
+        const primaryData = percent
+          ? Math.round(data.datasets[0].data[0]) + '%'
+          : '';
         ctx.save();
-        ctx.font = '400 14px sans-serif';
+        ctx.font = '400 12px sans-serif';
         ctx.fillStyle = '#B6B6B6';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
