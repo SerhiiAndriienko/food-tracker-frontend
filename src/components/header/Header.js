@@ -128,7 +128,6 @@ export default function Header() {
         </Profile>
         {isChangeGoalOpen && (
           <ModalBackdrop
-            show={showWeight}
             isMainModalOpen={isMainModalOpen}
             onClick={() => {
               toggleGoalClick();
