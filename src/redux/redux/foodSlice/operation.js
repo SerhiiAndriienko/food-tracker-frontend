@@ -6,7 +6,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 //   fetchWaterLevelStart,
 // } from './asyncSlice';
 
-axios.defaults.baseURL = 'http://localhost:8081';
+axios.defaults.baseURL = 'https://healthhub.onrender.com';
 // export const fetchWaterInDB = () => async dispatch => {
 //   try {
 //     dispatch(fetchWaterLevelStart());

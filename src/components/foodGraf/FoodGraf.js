@@ -14,7 +14,25 @@ import { useSelector } from 'react-redux';
 ChartJS.register(ArcElement);
 
 export default function FoodGraf() {
+  let needCalories;
+
+  const { goal } = useSelector(state => state.day);
+  switch (goal) {
+    case 'Lose fat':
+      needCalories = 2500;
+      break;
+    case 'Gain muscle':
+      needCalories = 2000;
+      break;
+    case 'Maintain':
+      needCalories = 2000;
+      break;
+    default:
+      needCalories = 2500;
+  }
+
   const day = useSelector(state => state.day);
+
   const isMobile = useMediaQuery('(max-width:833px)');
   const sumNutrients = meals => {
     return meals.reduce(
@@ -35,7 +53,6 @@ export default function FoodGraf() {
     ...day.dinner,
     ...day.snack,
   ]);
-
   const CarbohydratesComponent = NutrientComponent(
     'Carbohydrates',
     170,
@@ -62,9 +79,9 @@ export default function FoodGraf() {
   );
   const CaloriesComponent = NutrientComponent(
     'Calories',
-    1500,
+    needCalories,
     totalNutrients.calories,
-    null,
+    1,
     ['#45FFBC', '#292928'],
     '168px'
   );
@@ -73,7 +90,7 @@ export default function FoodGraf() {
       <h3>Food</h3>
       <InsideContainer>
         <CaloriesText>
-          <CaloriesNumber>300</CaloriesNumber>
+          <CaloriesNumber> {totalNutrients.calories}</CaloriesNumber>
           <Calories>calories</Calories>
         </CaloriesText>
         <TabletStyle isMobile={isMobile}>

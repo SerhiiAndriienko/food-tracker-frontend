@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'http://localhost:8081';
+axios.defaults.baseURL = 'https://healthhub.onrender.com';
 
 export const fetchDayInDB = createAsyncThunk(
   'day/fetchDay',

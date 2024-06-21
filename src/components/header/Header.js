@@ -32,17 +32,23 @@ export default function Header() {
   const isAddWaterModalOpen = useSelector(
     state => state.isModalOpen.isMainModalOpen
   );
+
   const toggleWeightclick = () => {
     setIsChangeWeightOpen(!isChangeWeightOpen);
   };
   const toggleMobileMenu = () => {
-    isMainModalOpen && dispatch(setIsMainModalOpen(false));
-    setIsChangeWeightOpen(false);
-    setIsChangeGoalOpen(false);
-    setIsMobileModalOpen(!isMobileModalOpen);
+    if (isMobile) {
+      isMainModalOpen && dispatch(setIsMainModalOpen(false));
+      setIsChangeWeightOpen(false);
+      setIsChangeGoalOpen(false);
+      setIsMobileModalOpen(!isMobileModalOpen);
+    } else {
+      return;
+    }
   };
-  const toggleGoalClick = () => {
-    setIsChangeGoalOpen(!isChangeGoalOpen);
+  const toggleGoalClick = bool => {
+    setIsChangeGoalOpen(bool);
+    setIsMobileModalOpen(false);
   };
 
   const toggleIsModalWindowOpen = () => {
@@ -122,6 +128,7 @@ export default function Header() {
         </Profile>
         {isChangeGoalOpen && (
           <ModalBackdrop
+            show={showWeight}
             isMainModalOpen={isMainModalOpen}
             onClick={() => {
               toggleGoalClick();
@@ -139,6 +146,7 @@ export default function Header() {
       </Navigation>
       {isMainModalOpen && (
         <ModalWindow
+          toggleGoalClick={toggleGoalClick}
           isChangeWeightOpen={isChangeWeightOpen}
           toggleIsModalWindowOpen={toggleIsModalWindowOpen}
           toggleWeightclick={toggleWeightclick}

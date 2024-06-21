@@ -19,11 +19,12 @@ import {
 import { useState } from 'react';
 
 import { fetchDayInDB } from '../../redux/redux/daySlice/operation';
+import Loader from 'components/loader/Loader';
 
 export default function ModalAddWater() {
   const dispatch = useDispatch();
-  const BASE_URL = 'http://localhost:8081/api';
-
+  const BASE_URL = 'https://healthhub.onrender.com/api';
+  const [isLoading, setIsLoading] = useState(false);
   const [waterIntake, setWaterIntake] = useState('');
   const [isValid, setIsValid] = useState(true);
   const isMainModalOpen = useSelector(getIsMainModalOpen);
@@ -50,15 +51,21 @@ export default function ModalAddWater() {
     if (!isValid) {
       toast.error('Please enter a valid water intake amount (max 5000ml).');
     } else {
-      dispatch(setIsMainModalOpen(!isMainModalOpen));
-      dispatch(setIsWaterModalOpen(!isWaterModalOpen));
       try {
+        setIsLoading(true);
         await axios.put(`${BASE_URL}/days/updateWater/${id}`, {
           value: waterIntake,
         });
         dispatch(fetchDayInDB(id));
+
+        dispatch(setIsMainModalOpen(!isMainModalOpen));
+        dispatch(setIsWaterModalOpen(!isWaterModalOpen));
+        setIsLoading(false);
+
         return;
       } catch (error) {
+        setIsLoading(false);
+
         console.log(error);
       }
     }
@@ -69,26 +76,30 @@ export default function ModalAddWater() {
     dispatch(setIsWaterModalOpen(!isWaterModalOpen));
   };
   return (
-    <Container>
-      <h3>Add water intake</h3>
-      <div>
-        <HowMuch>How much water</HowMuch>
-        <WaterInput
-          value={waterIntake}
-          onInput={waterHandler}
-          isValid={isValid}
-          placeholder="Enter milliliters"
-          onKeyDown={event => {
-            if (event.key === 'Enter') {
-              addWater();
-            }
-          }}
-        ></WaterInput>
-        <ButtonsDiv>
-          <AddBtn onClick={addWater}>Confirm</AddBtn>
-          <CancelBtn onClick={cancelBtn}>Cancel</CancelBtn>
-        </ButtonsDiv>
-      </div>
-    </Container>
+    <>
+      {isLoading && <Loader></Loader>}
+
+      <Container>
+        <h3>Add water intake</h3>
+        <div>
+          <HowMuch>How much water</HowMuch>
+          <WaterInput
+            value={waterIntake}
+            onInput={waterHandler}
+            isValid={isValid}
+            placeholder="Enter milliliters"
+            onKeyDown={event => {
+              if (event.key === 'Enter') {
+                addWater();
+              }
+            }}
+          ></WaterInput>
+          <ButtonsDiv>
+            <AddBtn onClick={addWater}>Confirm</AddBtn>
+            <CancelBtn onClick={cancelBtn}>Cancel</CancelBtn>
+          </ButtonsDiv>
+        </div>
+      </Container>
+    </>
   );
 }

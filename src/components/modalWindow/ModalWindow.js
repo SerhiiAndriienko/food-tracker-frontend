@@ -20,6 +20,7 @@ export default function ModalWindow({
   toggleIsModalWindowOpen,
   isChangeWeightOpen,
   isChangeGoalOpen,
+  toggleGoalClick,
 }) {
   const dispatch = useDispatch();
   const isModalOpen = useSelector(getIsMainModalOpen);
@@ -35,10 +36,10 @@ export default function ModalWindow({
       {isModalOpen && (
         <>
           <ModalBackdrop
-            isModalOpen={isModalOpen}
             onClick={() => {
               dispatch(setIsMainModalOpen(false));
               isWaterModalOpen && dispatch(setIsWaterModalOpen(false));
+              toggleGoalClick();
               if (isFoodModalOpen) {
                 dispatch(setIsFoodModalOpen(false));
                 dispatch(setMealsType(''));
@@ -54,6 +55,7 @@ export default function ModalWindow({
               )}
               {isChangeGoalOpen && (
                 <ChangeGoal
+                  toggleGoalClick={toggleGoalClick}
                   toggleIsModalWindowOpen={toggleIsModalWindowOpen}
                 ></ChangeGoal>
               )}
@@ -69,6 +71,8 @@ export default function ModalWindow({
 }
 ModalWindow.propTypes = {
   toggleIsModalWindowOpen: PropTypes.func.isRequired,
+  toggleGoalClick: PropTypes.func.isRequired,
+
   isModalOpen: PropTypes.bool,
   isChangeWeightOpen: PropTypes.bool.isRequired,
   toggleWeightclick: PropTypes.func.isRequired,

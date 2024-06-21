@@ -20,6 +20,7 @@ export const NutrientComponent = (
 ) => {
   const NutrientComponent = () => {
     const percentValue = percent ? (nutrientIntake * 100) / dailyGoal : 0;
+
     const data = {
       datasets: [
         {
@@ -67,13 +68,17 @@ export const NutrientComponent = (
     return (
       <NutrientBlock>
         <div style={{ height: `${height}`, width: `${height}` }}>
-          <Doughnut
-            options={options}
-            data={data}
-            plugins={[textCenter]}
-          ></Doughnut>
+          {nutrientName === 'Calories' ? (
+            <Doughnut options={options} data={data}></Doughnut>
+          ) : (
+            <Doughnut
+              options={options}
+              data={data}
+              plugins={[textCenter]}
+            ></Doughnut>
+          )}
         </div>
-        {percent && (
+        {nutrientName !== 'Calories' && (
           <NutrientInfo>
             <NutrientName>{nutrientName}</NutrientName>
             <NutrientStatistics>

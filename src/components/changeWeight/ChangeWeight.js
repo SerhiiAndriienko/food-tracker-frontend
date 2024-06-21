@@ -12,12 +12,18 @@ export default function ChangeWeight({
   toggleWeightclick,
 }) {
   const isMobile = useMediaQuery('(max-width:833px)');
+  const currentDate = new Date();
+
+  const formattedDate = `${currentDate.getDate()}-${
+    currentDate.getMonth() + 1
+  }-${currentDate.getFullYear()}`;
+
   return (
     <Container>
       <h2>Enter your current weight</h2>
       <p>You can record your weight once a day</p>
       <p>
-        Today<span> 05.06.2023</span>
+        Today<span> {formattedDate.replaceAll('-', '.')}</span>
       </p>
       <div>
         <input placeholder="Enter your weight"></input>

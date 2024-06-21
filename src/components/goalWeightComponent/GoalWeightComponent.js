@@ -5,14 +5,33 @@ import {
   GoalWeightContainer,
   WeightContainer,
 } from './GoalWeightComponent.styled';
+import maintainImg from '../../public/img/Maintain.png';
+import LoseFatImg from '../../public/img/Lose_fat.png';
+import gainMuscleImg from '../../public/img/Gain_muscle.png';
 import { useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
 import { setIsMainModalOpen } from '../../redux/redux/modalWindow/slice';
+
 export default function GoalWeightComponent({
   toggleWeightclick,
   toggleGoalClick,
 }) {
+  let imgSrc = '';
+  const currentWeight = useSelector(state => state.day.weight);
+
+  const { goal } = useSelector(state => state.day);
+  switch (goal) {
+    case 'Lose fat':
+      imgSrc = LoseFatImg;
+      break;
+    case 'Gain muscle':
+      imgSrc = gainMuscleImg;
+      break;
+    default:
+      imgSrc = maintainImg;
+      break;
+  }
   const dispatch = useDispatch();
   const isModalOpen = useSelector(getIsMainModalOpen);
   const isMobile = useMediaQuery('(max-width:834px)');
@@ -29,23 +48,19 @@ export default function GoalWeightComponent({
     if (isMobile) {
       dispatch(setIsMainModalOpen(!isModalOpen));
 
-      toggleGoalClick();
+      toggleGoalClick(true);
     } else {
-      toggleGoalClick();
+      toggleGoalClick(true);
     }
   };
 
   return (
     <GoalWeightContainer>
       <GoalContainer onClick={openChangeGoalComponent}>
-        <GoalImg
-          height={'28px'}
-          src="https://andriizlt.github.io/healthyHub-frontend/static/media/gainMuscle.747f9465f2b3869b77db.png"
-          alt="goalImg"
-        />
+        <GoalImg height={'28px'} src={imgSrc} alt="goalImg" />
         <div>
           <span>Goal </span>
-          <span>Gain muscle</span>
+          <span>{goal}</span>
         </div>
         <img
           height={'15px'}
@@ -61,7 +76,7 @@ export default function GoalWeightComponent({
         />
         <div>
           <span>Weigth </span>
-          <span>100 kg</span>
+          <span>{currentWeight} kg</span>
         </div>
         <img
           height={'15px'}

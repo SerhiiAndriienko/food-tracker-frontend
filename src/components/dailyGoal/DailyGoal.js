@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Calories,
   CaloriesContainer,
@@ -9,6 +10,30 @@ import {
   WaterContainer,
 } from './DailyGoal.styled';
 export default function DailyGoal() {
+  const { goal } = useSelector(state => state.day);
+  let needs = {
+    calories: 0,
+    water: 0,
+  };
+
+  switch (goal) {
+    case 'Lose fat':
+      needs.calories = 1500;
+      needs.water = 2500;
+      break;
+    case 'Gain muscle':
+      needs.calories = 2500;
+      needs.water = 2000;
+      break;
+    case 'Maintain':
+      needs.calories = 2000;
+      needs.water = 2000;
+      break;
+    default:
+      needs.calories = 2000;
+      needs.water = 2500;
+  }
+
   return (
     <DailyGoalContainer>
       <DailyGoalText>Daily Goal</DailyGoalText>
@@ -21,7 +46,7 @@ export default function DailyGoal() {
           />
           <div>
             <Calories>Calories</Calories>
-            <Numbers>1000</Numbers>
+            <Numbers>{needs.calories}</Numbers>
           </div>
         </CaloriesContainer>
         <WaterContainer>
@@ -32,7 +57,7 @@ export default function DailyGoal() {
           <div>
             <Calories>Water</Calories>
             <Numbers>
-              500 <span> ml</span>
+              {needs.water} <span> ml</span>
             </Numbers>
           </div>
         </WaterContainer>

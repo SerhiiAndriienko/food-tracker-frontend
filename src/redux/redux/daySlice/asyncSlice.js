@@ -9,24 +9,17 @@ const dayAsyncSlice = createSlice({
     lunch: [],
     dinner: [],
     snack: [],
+    goal: 'Gain muscle',
+    weight: 0,
+    isWeightChange: false,
     isLoading: false,
     error: null,
   },
-  // extraReducers: builder => {
-  //   builder
-  //     .addCase(fetchDayInDB.pending, state => {
-  //       state.isLoading = true;
-  //     })
-  //     .addCase(fetchDayInDB.fulfilled, (state, action) => {
-  //       state.isLoading = false;
-  //       state.error = null;
-  //       Object.assign(state, action.payload);
-  //     })
-  //     .addCase(fetchDayInDB.rejected, (state, action) => {
-  //       state.isLoading = false;
-  //       state.error = action.error.message;
-  //     });
-  // },
+  reducers: {
+    setGoal(state, action) {
+      state.goal = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchDayInDB.pending, state => {
@@ -65,5 +58,5 @@ const dayAsyncSlice = createSlice({
       });
   },
 });
-
+export const { setGoal } = dayAsyncSlice.actions;
 export default dayAsyncSlice.reducer;

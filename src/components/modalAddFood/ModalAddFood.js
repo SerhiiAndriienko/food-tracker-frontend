@@ -23,10 +23,13 @@ import {
 } from '../../redux/redux/modalWindow/slice';
 
 import { fetchDayInDB } from '../../redux/redux/daySlice/operation';
+import Loader from 'components/loader/Loader';
+import { useState } from 'react';
 
 export default function ModalAddFood() {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  const BASE_URL = 'http://localhost:8081/api';
+  const BASE_URL = 'https://healthhub.onrender.com/api';
   const id = useSelector(state => state.day.id);
   const isMainModalOpen = useSelector(getIsMainModalOpen);
   const isFoodModalOpen = useSelector(
@@ -49,7 +52,7 @@ export default function ModalAddFood() {
     }
   };
 
-  const handleAddFood = async event => {
+  const handleAddFood = async () => {
     const nameInput = document.getElementById('nameInput');
     const carbonohidratesInput = document.getElementById(
       'carbonohidratesInput'
@@ -74,6 +77,7 @@ export default function ModalAddFood() {
       return;
     }
     try {
+      setIsLoading(true);
       const response = await axios.post(`${BASE_URL}/days/updateFood/${id}`, {
         mealsType: mealsType.toLowerCase(),
         food: {
@@ -85,6 +89,7 @@ export default function ModalAddFood() {
         },
       });
       if (response.data) {
+        setIsLoading(false);
         dispatch(fetchDayInDB(id));
       }
       nameInput.value = '';
@@ -96,6 +101,8 @@ export default function ModalAddFood() {
       dispatch(setIsMainModalOpen(!isMainModalOpen));
       dispatch(setIsFoodModalOpen(!isFoodModalOpen));
     } catch (error) {
+      setIsLoading(false);
+
       console.error('Failed to add food:', error);
       toast.error('Failed to add food. Please try again.');
     }
@@ -112,70 +119,73 @@ export default function ModalAddFood() {
     dispatch(setIsFoodModalOpen(!isFoodModalOpen));
   };
   return (
-    <Container>
-      <h3>Record your meal</h3>
-      <div>
-        <MealsTypeContainer>
-          <img src={eatingImg()} alt="Meals Img" />
-          <MealsType>{mealsType}</MealsType>
-        </MealsTypeContainer>
-        <InputsContainer>
-          <NutrientInput
-            style={{ width: '300px' }}
-            id="nameInput"
-            size="large"
-            placeholder="The name of the product or dish"
-            onKeyDown={handleKeyPress}
-          ></NutrientInput>
-          <NutrientInput
-            id="carbonohidratesInput"
-            placeholder="Carbonoh."
-            onKeyDown={handleKeyPress}
-          ></NutrientInput>
-          <NutrientInput
-            id="proteinInput"
-            placeholder="Protein"
-            onKeyDown={handleKeyPress}
-          ></NutrientInput>
-          {!isTablet && (
-            <FatAndCaloriesContainer>
-              <NutrientInput
-                id="fatInput"
-                placeholder="Fat"
-                size="small"
-                onKeyDown={handleKeyPress}
-              ></NutrientInput>
-              <NutrientInput
-                id="caloriesInput"
-                placeholder="Calories"
-                onKeyDown={handleKeyPress}
-              ></NutrientInput>
-              <DeleteBtn src={deleteImg} alt="deleteImg" height={'20px'} />
-            </FatAndCaloriesContainer>
-          )}
-          {isTablet && (
-            <>
-              <NutrientInput
-                id="fatInput"
-                placeholder="Fat"
-                size="small"
-                onKeyDown={handleKeyPress}
-              ></NutrientInput>
-              <NutrientInput
-                id="caloriesInput"
-                placeholder="Calories"
-                onKeyDown={handleKeyPress}
-              ></NutrientInput>
-              <DeleteBtn src={deleteImg} alt="deleteImg" height={'20px'} />
-            </>
-          )}
-        </InputsContainer>
+    <>
+      {isLoading && <Loader></Loader>}
+      <Container>
+        <h3>Record your meal</h3>
+        <div>
+          <MealsTypeContainer>
+            <img src={eatingImg()} alt="Meals Img" />
+            <MealsType>{mealsType}</MealsType>
+          </MealsTypeContainer>
+          <InputsContainer>
+            <NutrientInput
+              style={{ width: '300px' }}
+              id="nameInput"
+              size="large"
+              placeholder="The name of the product or dish"
+              onKeyDown={handleKeyPress}
+            ></NutrientInput>
+            <NutrientInput
+              id="carbonohidratesInput"
+              placeholder="Carbonoh."
+              onKeyDown={handleKeyPress}
+            ></NutrientInput>
+            <NutrientInput
+              id="proteinInput"
+              placeholder="Protein"
+              onKeyDown={handleKeyPress}
+            ></NutrientInput>
+            {!isTablet && (
+              <FatAndCaloriesContainer>
+                <NutrientInput
+                  id="fatInput"
+                  placeholder="Fat"
+                  size="small"
+                  onKeyDown={handleKeyPress}
+                ></NutrientInput>
+                <NutrientInput
+                  id="caloriesInput"
+                  placeholder="Calories"
+                  onKeyDown={handleKeyPress}
+                ></NutrientInput>
+                <DeleteBtn src={deleteImg} alt="deleteImg" height={'20px'} />
+              </FatAndCaloriesContainer>
+            )}
+            {isTablet && (
+              <>
+                <NutrientInput
+                  id="fatInput"
+                  placeholder="Fat"
+                  size="small"
+                  onKeyDown={handleKeyPress}
+                ></NutrientInput>
+                <NutrientInput
+                  id="caloriesInput"
+                  placeholder="Calories"
+                  onKeyDown={handleKeyPress}
+                ></NutrientInput>
+                <DeleteBtn src={deleteImg} alt="deleteImg" height={'20px'} />
+              </>
+            )}
+          </InputsContainer>
 
-        <ButtonsDiv>
-          <AddBtn onClick={handleAddFood}>Confirm</AddBtn>
-          <CancelBtn onClick={cancelBtn}>Cancel</CancelBtn>
-        </ButtonsDiv>
-      </div>
-    </Container>
+          <ButtonsDiv>
+            <AddBtn onClick={handleAddFood}>Confirm</AddBtn>
+            <CancelBtn onClick={cancelBtn}>Cancel</CancelBtn>
+          </ButtonsDiv>
+        </div>
+      </Container>
+    </>
   );
 }

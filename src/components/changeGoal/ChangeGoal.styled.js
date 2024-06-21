@@ -8,6 +8,7 @@ export const Container = styled.div`
   padding-left: 24px;
   padding-right: 24px;
   overflow: hidden;
+
   @media screen and (max-width: 834px) {
     padding: 0;
   }
@@ -37,6 +38,7 @@ export const ConfirmBtn = styled.button`
   transition: background-color 0.3s ease, color 0.3s ease;
   color: black;
   border: 2px solid #e3ffa8;
+  cursor: pointer;
   font-weight: 700;
   height: 40px;
   width: 168px;
@@ -74,13 +76,15 @@ export const GoalImg = styled.img`
   padding: 10px;
   border: 1px solid #918d84;
   border-radius: 10px;
-  margin-bottom: 16px;
 `;
 export const GoalContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  span {
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
     margin-left: 12px;
     color: var(--color-primary---white);
     font-size: 14px;
@@ -90,4 +94,11 @@ export const GoalContainer = styled.div`
     display: flex;
     align-items: center;
   }
+`;
+export const GoalItem = styled.div`
+  border: ${props =>
+    props.selected ? '2px solid var(--color-primary---lite-green)' : 'none'};
+  border-color: rgba(69, 255, 188, 0.5);
+  border-radius: 10px;
+  margin-bottom: 16px;
 `;
