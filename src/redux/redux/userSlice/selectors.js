@@ -1,4 +1,4 @@
-export const getDayData = state => {
+export const detDayData = state => {
   return {
     id: state.day.id,
     water: state.day.waterLevel,

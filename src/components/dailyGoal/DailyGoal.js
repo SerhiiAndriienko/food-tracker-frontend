@@ -10,7 +10,7 @@ import {
   WaterContainer,
 } from './DailyGoal.styled';
 export default function DailyGoal() {
-  const { goal } = useSelector(state => state.day);
+  const { goal } = useSelector(state => state.user);
   let needs = {
     calories: 0,
     water: 0,
@@ -22,8 +22,8 @@ export default function DailyGoal() {
       needs.water = 2500;
       break;
     case 'Gain muscle':
-      needs.calories = 2500;
-      needs.water = 2000;
+      needs.calories = 3000;
+      needs.water = 3000;
       break;
     case 'Maintain':
       needs.calories = 2000;

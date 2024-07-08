@@ -21,7 +21,11 @@ export const Container = styled.div`
     margin: 0px;
     padding-bottom: 16px;
   }
-  input {
+
+  }
+`;
+
+export const WeightInput = styled.input`
     @media screen and (max-width: 834px) {
       width: 100%;
     }
@@ -36,10 +40,7 @@ export const Container = styled.div`
     color: var(--color-primary---white);
     &::placeholder {
       opacity: 1;
-    }
-  }
 `;
-
 export const CloseBtn = styled.img`
   position: absolute;
   top: 20px;

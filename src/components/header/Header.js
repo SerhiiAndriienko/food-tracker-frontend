@@ -1,6 +1,6 @@
 import useMediaQuery from 'helpers/mediaQuery';
 import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import {
   Logo,
   Navigation,
@@ -9,6 +9,8 @@ import {
   MobileMenuStyle,
   ChangeGoalStyle,
   ModalBackdrop,
+  RegBtn,
+  ProfileName,
 } from './Header.styled';
 import NavigationLink from 'components/navigationLink/NavigationLink';
 import ChangeWeight from 'components/changeWeight/ChangeWeight';
@@ -19,22 +21,45 @@ import ChangeGoal from 'components/changeGoal/ChangeGoal';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIsMainModalOpen } from '../../redux/redux/modalWindow/selectors';
 import { setIsMainModalOpen } from '../../redux/redux/modalWindow/slice';
+import LogOutModal from 'components/logOut/LogOut';
+import { fetchUser } from '../../redux/redux/userSlice/operation';
 
 export default function Header() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isMainModalOpen = useSelector(getIsMainModalOpen);
   const isDesktop = useMediaQuery('(min-width:1440px)');
   const isTablet = useMediaQuery('(min-width:834px)');
   const isMobile = useMediaQuery('(max-width:833px)');
+  const userName = useSelector(state => state.user.userName);
+  const localUserId = sessionStorage.getItem('userId');
   const [isChangeWeightOpen, setIsChangeWeightOpen] = useState(false);
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [isChangeGoalOpen, setIsChangeGoalOpen] = useState(false);
+  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
   const isAddWaterModalOpen = useSelector(
     state => state.isModalOpen.isMainModalOpen
   );
 
-  const toggleWeightclick = () => {
-    setIsChangeWeightOpen(!isChangeWeightOpen);
+  const toggleWeightclick = bool => {
+    setIsChangeWeightOpen(bool);
+    setIsMobileModalOpen(false);
+  };
+  const toggleLogOutClick = e => {
+    if (e.target.tagName === 'BUTTON') {
+      if (e.target.textContent === 'Log out') {
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('userToken');
+        sessionStorage.removeItem('id');
+
+        dispatch(fetchUser);
+        navigate('/');
+        setIsLogOutModalOpen(!isLogOutModalOpen);
+      }
+    }
+    if (e.target.tagName !== 'BUTTON') {
+      setIsLogOutModalOpen(!isLogOutModalOpen);
+    }
   };
   const toggleMobileMenu = () => {
     if (isMobile) {
@@ -91,40 +116,58 @@ export default function Header() {
             </MobileMenuStyle>
           )}
         </Logo>
-        {isDesktop && <NavigationLink></NavigationLink>}
-        {isTablet && (
+        {localUserId && (
           <>
-            {isChangeWeightOpen && (
-              <ChangeWeightStyle isDesktop={isDesktop}>
-                <ChangeWeight
+            {isDesktop && <NavigationLink></NavigationLink>}
+            {isTablet && (
+              <>
+                {isChangeWeightOpen && (
+                  <ChangeWeightStyle isDesktop={isDesktop}>
+                    <ChangeWeight
+                      toggleWeightclick={toggleWeightclick}
+                    ></ChangeWeight>
+                  </ChangeWeightStyle>
+                )}
+                {isChangeGoalOpen && (
+                  <ChangeGoalStyle isDesktop={isDesktop}>
+                    <ChangeGoal
+                      toggleGoalClick={toggleGoalClick}
+                      toggleIsModalWindowOpen={toggleIsModalWindowOpen}
+                    ></ChangeGoal>
+                  </ChangeGoalStyle>
+                )}
+                <GoalWeightComponent
                   toggleWeightclick={toggleWeightclick}
-                ></ChangeWeight>
-              </ChangeWeightStyle>
+                  toggleGoalClick={toggleGoalClick}
+                ></GoalWeightComponent>
+              </>
             )}
-            {isChangeGoalOpen && (
-              <ChangeGoalStyle isDesktop={isDesktop}>
-                <ChangeGoal toggleGoalClick={toggleGoalClick}></ChangeGoal>
-              </ChangeGoalStyle>
-            )}
-            <GoalWeightComponent
-              toggleWeightclick={toggleWeightclick}
-              toggleGoalClick={toggleGoalClick}
-            ></GoalWeightComponent>
           </>
         )}
 
         <Profile>
-          <span>Name</span>
-          <img
-            height={'24px'}
-            style={{ borderRadius: '50%' }}
-            src="https://www.gravatar.com/avatar/366e6392f294b87693b3f5ccbd47caa1?s=250&r=g&d=wavatar"
-            alt="profileFoto"
-          ></img>
-          <img
-            src="https://andriizlt.github.io/healthyHub-frontend/static/media/arrow_down.f75aff20b463a9b71cc7c577d017d1bb.svg"
-            alt="openMenu"
-          />
+          {!localUserId && (
+            <Link to="/">
+              <RegBtn>Profile</RegBtn>
+            </Link>
+          )}
+          {localUserId && (
+            <ProfileName onClick={toggleLogOutClick}>
+              <span>{localUserId ? userName : ''}</span>
+
+              <img
+                height={'24px'}
+                style={{ borderRadius: '50%' }}
+                src="https://www.gravatar.com/avatar/366e6392f294b87693b3f5ccbd47caa1?s=250&r=g&d=wavatar"
+                alt="profileFoto"
+              ></img>
+              <img
+                src="https://andriizlt.github.io/healthyHub-frontend/static/media/arrow_down.f75aff20b463a9b71cc7c577d017d1bb.svg"
+                alt="openMenu"
+              />
+              {isLogOutModalOpen && <LogOutModal></LogOutModal>}
+            </ProfileName>
+          )}
         </Profile>
         {isChangeGoalOpen && (
           <ModalBackdrop

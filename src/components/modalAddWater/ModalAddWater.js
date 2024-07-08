@@ -24,6 +24,7 @@ import Loader from 'components/loader/Loader';
 export default function ModalAddWater() {
   const dispatch = useDispatch();
   const BASE_URL = 'https://healthhub.onrender.com/api';
+  // const BASE_URL = 'http://localhost:8081/api';
   const [isLoading, setIsLoading] = useState(false);
   const [waterIntake, setWaterIntake] = useState('');
   const [isValid, setIsValid] = useState(true);

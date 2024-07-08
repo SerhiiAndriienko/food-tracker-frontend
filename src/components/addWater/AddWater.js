@@ -26,6 +26,8 @@ import { useState } from 'react';
 
 export default function AddWater() {
   const BASE_URL = 'https://healthhub.onrender.com/api';
+  // const BASE_URL = 'http://localhost:8081/api';
+
   const dispatch = useDispatch();
   const isMainModalOpen = useSelector(getIsMainModalOpen);
   const waterLevel = useSelector(state => state.day.water);
@@ -36,13 +38,13 @@ export default function AddWater() {
   );
   let needWater;
 
-  const { goal } = useSelector(state => state.day);
+  const { goal } = useSelector(state => state.user);
   switch (goal) {
     case 'Lose fat':
       needWater = 2500;
       break;
     case 'Gain muscle':
-      needWater = 2000;
+      needWater = 3000;
       break;
     case 'Maintain':
       needWater = 2000;
@@ -69,12 +71,11 @@ export default function AddWater() {
       await axios.post(`${BASE_URL}/days/deleteWater/${id}`, {
         value: waterIntake,
       });
-      dispatch(fetchDayInDB(id));
+      dispatch(fetchDayInDB({ id }));
       setIsLoading(false);
       return;
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
     }
   };
   return (

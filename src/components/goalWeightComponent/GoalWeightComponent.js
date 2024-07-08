@@ -18,9 +18,10 @@ export default function GoalWeightComponent({
   toggleGoalClick,
 }) {
   let imgSrc = '';
-  const currentWeight = useSelector(state => state.day.weight);
 
-  const { goal } = useSelector(state => state.day);
+  const currentWeight = useSelector(state => state.user.weight);
+  const isWeightChanged = useSelector(state => state.day.isWeightChange);
+  const { goal } = useSelector(state => state.user);
   switch (goal) {
     case 'Lose fat':
       imgSrc = LoseFatImg;
@@ -36,12 +37,12 @@ export default function GoalWeightComponent({
   const isModalOpen = useSelector(getIsMainModalOpen);
   const isMobile = useMediaQuery('(max-width:834px)');
   const openChangeWeightComponent = () => {
-    if (isMobile) {
+    if (isMobile && !isWeightChanged) {
       dispatch(setIsMainModalOpen(!isModalOpen));
 
-      toggleWeightclick();
-    } else {
-      toggleWeightclick();
+      toggleWeightclick(true);
+    } else if (!isWeightChanged) {
+      toggleWeightclick(true);
     }
   };
   const openChangeGoalComponent = () => {
@@ -53,7 +54,6 @@ export default function GoalWeightComponent({
       toggleGoalClick(true);
     }
   };
-
   return (
     <GoalWeightContainer>
       <GoalContainer onClick={openChangeGoalComponent}>
@@ -75,14 +75,16 @@ export default function GoalWeightComponent({
           alt="goalImg"
         />
         <div>
-          <span>Weigth </span>
+          <span>Weight </span>
           <span>{currentWeight} kg</span>
         </div>
-        <img
-          height={'15px'}
-          src="https://andriizlt.github.io/healthyHub-frontend/static/media/edit.dbdab56a20b44e845cfbb0e2c834d2bd.svg"
-          alt="writeWeightImg"
-        />
+        {!isWeightChanged && (
+          <img
+            height={'15px'}
+            src="https://andriizlt.github.io/healthyHub-frontend/static/media/edit.dbdab56a20b44e845cfbb0e2c834d2bd.svg"
+            alt="writeWeightImg"
+          />
+        )}
       </WeightContainer>
     </GoalWeightContainer>
   );

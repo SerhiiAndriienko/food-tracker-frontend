@@ -21,9 +21,11 @@ export default function ModalWindow({
   isChangeWeightOpen,
   isChangeGoalOpen,
   toggleGoalClick,
+  toggleWeightclick,
 }) {
   const dispatch = useDispatch();
   const isModalOpen = useSelector(getIsMainModalOpen);
+
   const isWaterModalOpen = useSelector(
     state => state.isModalOpen.isWaterModalOpen
   );
@@ -50,6 +52,7 @@ export default function ModalWindow({
             <>
               {isChangeWeightOpen && (
                 <ChangeWeight
+                  toggleWeightclick={toggleWeightclick}
                   toggleIsModalWindowOpen={toggleIsModalWindowOpen}
                 ></ChangeWeight>
               )}

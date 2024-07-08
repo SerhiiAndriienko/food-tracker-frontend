@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchDayInDB, createDayInDB } from './operation';
+import { fetchDayInDB, createDayInDB, updateDay } from './operation';
 const dayAsyncSlice = createSlice({
   name: 'day',
   initialState: {
@@ -9,16 +9,16 @@ const dayAsyncSlice = createSlice({
     lunch: [],
     dinner: [],
     snack: [],
-    goal: 'Gain muscle',
     weight: 0,
     isWeightChange: false,
     isLoading: false,
     error: null,
+    owner: null,
   },
   reducers: {
-    setGoal(state, action) {
-      state.goal = action.payload;
-    },
+    // setOwner: (state, action) => {
+    //   state.owner = action.payload;
+    // },
   },
   extraReducers: builder => {
     builder
@@ -34,6 +34,7 @@ const dayAsyncSlice = createSlice({
         state.lunch = action.payload.lunch;
         state.dinner = action.payload.dinner;
         state.snack = action.payload.snack;
+        state.owner = action.payload.owner;
       })
       .addCase(fetchDayInDB.rejected, (state, action) => {
         state.isLoading = false;
@@ -51,12 +52,23 @@ const dayAsyncSlice = createSlice({
         state.lunch = action.payload.lunch;
         state.dinner = action.payload.dinner;
         state.snack = action.payload.snack;
+        state.isWeightChange = action.payload.isWeightChange;
       })
       .addCase(createDayInDB.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(updateDay.fulfilled, (state, action) => {
+        state.weight = action.payload.weight;
+        state.isWeightChange = action.payload.isWeightChange;
+      })
+      .addCase(updateDay.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
-export const { setGoal } = dayAsyncSlice.actions;
+export const {
+  setGoal,
+  // setOwner
+} = dayAsyncSlice.actions;
 export default dayAsyncSlice.reducer;

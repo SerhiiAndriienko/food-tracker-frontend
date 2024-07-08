@@ -13,20 +13,22 @@ import {
   GoalImg,
   GoalItem,
 } from './ChangeGoal.styled';
-import { setGoal } from '../../redux/redux/daySlice/asyncSlice';
 import { useState } from 'react';
 import { setIsMainModalOpen } from '../../redux/redux/modalWindow/slice';
+import { updateDataOfUser } from '../../redux/redux/userSlice/operation';
 export default function ChangeGoal({
   toggleGoalClick,
   toggleIsModalWindowOpen,
 }) {
-  const currentGoal = useSelector(state => state.day.goal);
+  const currentGoal = useSelector(state => state.user.goal);
   const [selectedGoal, setSelectedGoal] = useState(currentGoal);
   const isMobile = useMediaQuery('(max-width:834px)');
   const dispatch = useDispatch();
-
-  const changeGoal = () => {
-    dispatch(setGoal(selectedGoal));
+  const localUserId = sessionStorage.getItem('userId');
+  const changeGoal = async () => {
+    await dispatch(
+      updateDataOfUser({ data: { goal: selectedGoal }, id: localUserId })
+    );
     dispatch(setIsMainModalOpen(false));
     toggleGoalClick(false);
   };

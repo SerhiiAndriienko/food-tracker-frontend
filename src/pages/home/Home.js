@@ -10,21 +10,18 @@ import { Link } from 'react-router-dom';
 import Loader from '../../components/loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  createDayInDB,
-  fetchDayInDB,
-} from '../../redux/redux/daySlice/operation';
+import { createDayInDB } from '../../redux/redux/daySlice/operation';
+import { fetchUser } from '../../redux/redux/userSlice/operation';
 export default function Home() {
   const dispatch = useDispatch();
-  const id = useSelector(state => state.day.id);
   const loading = useSelector(state => state.day.isLoading);
+  const localUserId = sessionStorage.getItem('userId');
+  const localUserToken = sessionStorage.getItem('userToken');
+
   useEffect(() => {
-    if (id) {
-      dispatch(fetchDayInDB(id));
-    } else {
-      dispatch(createDayInDB());
-    }
-  }, [dispatch, id]);
+    dispatch(createDayInDB(localUserId));
+    dispatch(fetchUser({ id: localUserId, token: localUserToken }));
+  }, [dispatch, localUserId, localUserToken]);
 
   const isMobile = useMediaQuery('(max-width:833px)');
   const [count, setCount] = useState(isMobile ? 2 : 4);
@@ -43,6 +40,7 @@ export default function Home() {
 
         <DesktopStyle>
           <DailyGoal></DailyGoal>
+
           <AddWater></AddWater>
           <FoodGraf></FoodGraf>
         </DesktopStyle>

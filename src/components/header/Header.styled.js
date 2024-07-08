@@ -101,3 +101,31 @@ export const ModalBackdrop = styled.div`
   height: 100%;
   z-index: 9998;
 `;
+export const RegBtn = styled.button`
+  display: block;
+
+  transition: background-color 0.3s ease, border 0.3s ease;
+
+  color: black;
+  border: 2px solid var(--color-primary---green-lite);
+  font-weight: 700;
+  font-size: 16px;
+  height: 40px;
+  min-width: 120px;
+
+  border-radius: 16px;
+  background-color: var(--color-primary---green-lite);
+  cursor: pointer;
+  &:hover {
+    background-color: #0f7b54;
+    border: 1px solid transparent;
+  }
+  @media screen and (min-width: 834px) {
+  }
+  @media screen and (max-width: 834px) {
+  }
+`;
+export const ProfileName = styled.div`
+  display: flex;
+  cursor: pointer;
+`;
