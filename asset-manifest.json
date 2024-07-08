@@ -1,15 +1,22 @@
 {
   "files": {
-    "main.css": "/food-tracker-frontend/static/css/main.a2bc6ecc.css",
-    "main.js": "/food-tracker-frontend/static/js/main.841eb19b.js",
+    "main.css": "/food-tracker-frontend/static/css/main.1fe200c0.css",
+    "main.js": "/food-tracker-frontend/static/js/main.255645e7.js",
     "static/media/Maintain.png": "/food-tracker-frontend/static/media/Maintain.dbd3f170856c9941c53a.png",
+    "static/media/Illustration gender and age.webp": "/food-tracker-frontend/static/media/Illustration gender and age.f38a85f369ab0c3f0fb7.webp",
+    "static/media/Illustration Goals.webp": "/food-tracker-frontend/static/media/Illustration Goals.7f5917d0080da3c38c8b.webp",
+    "static/media/Illustration Activity.webp": "/food-tracker-frontend/static/media/Illustration Activity.6c71d35e36a316da092a.webp",
+    "static/media/Illustration  Body parameters.webp": "/food-tracker-frontend/static/media/Illustration  Body parameters.62742d94c2a728483f12.webp",
+    "static/media/welcomeImage.png": "/food-tracker-frontend/static/media/welcomeImage.6a9306e0d0f3c1ea4e91.png",
+    "static/media/setting.svg": "/food-tracker-frontend/static/media/setting.7460246696bd6fe8d82854a302b36316.svg",
     "index.html": "/food-tracker-frontend/index.html",
+    "static/media/logout.svg": "/food-tracker-frontend/static/media/logout.c015f8e81acaff23751942c60fb699ac.svg",
     "static/media/trash-03.svg": "/food-tracker-frontend/static/media/trash-03.04fad025baabb7f54f21ea1c592a8335.svg",
-    "main.a2bc6ecc.css.map": "/food-tracker-frontend/static/css/main.a2bc6ecc.css.map",
-    "main.841eb19b.js.map": "/food-tracker-frontend/static/js/main.841eb19b.js.map"
+    "main.1fe200c0.css.map": "/food-tracker-frontend/static/css/main.1fe200c0.css.map",
+    "main.255645e7.js.map": "/food-tracker-frontend/static/js/main.255645e7.js.map"
   },
   "entrypoints": [
-    "static/css/main.a2bc6ecc.css",
-    "static/js/main.841eb19b.js"
+    "static/css/main.1fe200c0.css",
+    "static/js/main.255645e7.js"
   ]
 }
